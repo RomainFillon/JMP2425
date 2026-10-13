@@ -1,0 +1,64 @@
+﻿product_code_ISICRev3;subsector;sector;theta_k;product_code_ISICRev3;
+"01";Agriculture;Agriculture;8.11;"Agriculture, forestry and fishing";
+"02";Agriculture;Agriculture;8.11;"Agriculture, forestry and fishing";
+"03";Agriculture;Agriculture;8.11;"Agriculture, forestry and fishing";
+"04";Agriculture;Agriculture;8.11;"Agriculture, forestry and fishing";
+"05";Agriculture;Agriculture;8.11;"Agriculture, forestry and fishing";
+"10";Mining;Manufacturing;15.72;"Mining and quarrying";
+"11";Mining;Manufacturing;15.72;"Mining and quarrying";
+"12";Mining;Manufacturing;15.72;"Mining and quarrying";
+"13";Mining;Manufacturing;15.72;"Mining and quarrying";
+"14";Mining;Manufacturing;15.72;"Mining and quarrying";
+"15";Food;Manufacturing;2.55;"Manufacturing"
+"16";Food;Manufacturing;2.55;"Manufacturing"
+"17";Textile;Manufacturing;5.56;"Manufacturing"
+"18";Textile;Manufacturing;5.56;"Manufacturing"
+"19";Textile;Manufacturing;5.56;"Manufacturing"
+"20";Wood;Manufacturing;10.83;"Manufacturing"
+"21";Paper;Manufacturing;9.07;"Manufacturing"
+"22";Paper;Manufacturing;9.07;"Manufacturing"
+"23";Petroleum;Manufacturing;51.08;"Manufacturing"
+"24";Chemicals;Manufacturing;4.75;"Manufacturing"
+"25";Plastic;Manufacturing;1.66;"Manufacturing"
+"26";Minerals;Manufacturing;2.76;"Manufacturing"
+"27";Basic metals;Manufacturing;7.99;"Manufacturing"
+"28";Metal products;Manufacturing;4.30;"Manufacturing"
+"29";Machinery n.e.c.;Manufacturing;1.52;"Manufacturing"
+"30";Office;Manufacturing;12.79;"Manufacturing"
+"31";Electrical;Manufacturing;10.60;"Manufacturing"
+"32";Communication;Manufacturing;7.07;"Manufacturing"
+"33";Medical;Manufacturing;8.98;"Manufacturing"
+"34";Auto;Manufacturing;1.01;"Manufacturing"
+"35";Other Transport;Manufacturing;0.37;"Manufacturing"
+"36";Other;Manufacturing;5.00;"Manufacturing"
+"37";Other;Services;4.55;
+"40";Electricity;Services;4.55;"Electricity, gas, steam and air conditioning supply";
+"41";Electricity;Services;4.55;"Water supply; sewerage, waste management and remediation activities";
+"45";Construction;Services;4.55;"Construction";
+"50";Retail;Services;4.55;"Wholesale and retail trade; repair of motor vehicles";
+"51";Retail;Services;4.55;"Wholesale and retail trade; repair of motor vehicles";
+"52";Retail;Services;4.55;"Wholesale and retail trade; repair of motor vehicles";
+"55";Hotels;Services;4.55;"Accommodation and food service activities";
+"60";Land Transport;Services;4.55;"Transportation and storage";
+"61";Water Transport;Services;4.55;"Transportation and storage";
+"62";Air Transport;Services;4.55;"Transportation and storage";
+"63";Aux Transport;Services;4.55;"Administrative and support services";
+"64";Post;Services;4.55;"Information and communication";
+"65";Finance;Services;4.55;"Financial and insurance activities";
+"66";Finance;Services;4.55;"Financial and insurance activities";
+"67";Finance;Services;4.55;"Financial and insurance activities";
+"70";Real State;Services;4.55;"Real estate activities";
+"71";Renting Mach;Services;4.55;"Administrative and support service activities";
+"72";Computer;Services;4.55;"Information and communication";
+"73";R&D;Services;4.55;"Professional, scientific and technical activities";
+"74";Other Business;Services;4.55;"Administrative and support service activities";
+"75";Public;Services;4.55;"Public administration and defence; compulsory social security";
+"80";Education;Services;4.55;"Education";
+"85";Health;Services;4.55;"Human health and social work activities";
+"90";Other services;Services;4.55;"Water supply; sewerage, waste management and remediation activities";
+"91";Other services;Services;4.55;"Other service activities";
+"92";Other services;Services;4.55;"Arts, entertainment and recreation";
+"93";Other services;Services;4.55;"Other service activities";
+"95";Private;Services;4.55;"Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use";
+
+

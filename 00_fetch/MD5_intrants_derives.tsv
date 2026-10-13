@@ -1,0 +1,7 @@
+# Full md5 of the derived inputs: outputs of the SERVER steps and the input without a producer.
+# Paths relative to the package root. Read by tools/check_data.py; same form as MD5_data_inputs.tsv.
+33e28df127942c0ea9243e1fb5e4d0ff	intermediate_outputs/ERA_tas_distribution_grid_annual.csv
+b698f887c6eea4257958ab2b7b524b71	intermediate_outputs/CMIP6_tas.csv
+aaf4697057bb82e284a5104fb65d409d	intermediate_outputs/tas_ssp2_daily.csv
+6b8d68d55e11d56f5688114da7e882f7	intermediate_outputs/tas_ssp2_annual.csv
+3bd664e3ce03e941ec71e9fa06f5820e	output/oh_hdi_country_year.csv

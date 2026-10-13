@@ -1,0 +1,26 @@
+Version: 1.0
+
+# Ouvrir ce fichier place le repertoire de travail a la racine du depot, ce qui
+# permet a .Rprofile d'etre lu et a JMP_ROOT d'etre pose automatiquement.
+# Sans lui, R demarre dans le dossier utilisateur et aucun chemin ne resout.
+
+RestoreWorkspace: No
+SaveWorkspace: No
+AlwaysSaveHistory: Default
+
+# Un espace de travail restaure porterait des objets d'une session anterieure :
+# un script semblerait tourner alors qu'il lit une variable qu'il ne cree plus.
+
+EnableCodeIndexing: Yes
+UseSpacesForTab: Yes
+NumSpacesForTab: 2
+Encoding: UTF-8
+
+# UTF-8 explicite : les scripts portent des commentaires accentues, et une
+# lecture en latin1 les rend illisibles sans lever d'erreur.
+
+RnwWeave: Sweave
+LaTeX: pdfLaTeX
+
+AutoAppendNewline: Yes
+StripTrailingWhitespace: Yes

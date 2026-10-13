@@ -1,0 +1,17 @@
+iter;1.00E+20;max iteration
+epsilon;0.00000000001;non zero wage and population
+damp_inner_initial;0.1;wage_updating
+damp_inner_final;0.5;wage_updating
+damp_outer;0.2;utility_updating
+damp_tstep;0.1;wage_updating_between_timesteps
+tol_inner;1e-4;min tolerance for convergence inner
+tol_outer;1e-4;min tolerance for convergence outer
+alpha;0.85;residential land share in consumption expenditure
+sigma;7;elasticity of substitution between goods (3 to 10 sensitivity in Balboni)
+nu;0.333333333;migration elasticity (sensitivity 1/2, 1/4)
+Omega;0.5; elasticity of migration flows with respect to real income (Desmet et al., 2018)
+param_lambda;0.32; elasticity of gridded amenities to gridded population density (Desmet et al., 2018)
+param_mu;0.6; labor share (Desmet & Rossi-Hansberg, 2015)
+param_theta;6.5; trade elasticity (Desmet et al., 2018)
+param_chi;1; fixed share in worker's expenditure (Conte et al., 2021)
+beta;0.835;discount_factor

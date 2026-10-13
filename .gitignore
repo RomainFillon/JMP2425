@@ -1,0 +1,121 @@
+# .gitignore of the replication package.
+# In: code, the checks the chain runs, manifests, small inputs the code cannot download,
+#     the paper's outputs, the manuscript and its bibliography, the reader documentation.
+# Out: data, derived files, backups, logs, the author's working files and self-tests,
+#     compiled PDF and LaTeX auxiliaries, libraries.
+
+# --- data: not redistributed, see DATA.md -----------------------------------
+/data_inputs/*
+# two small files built by the author, shipped (DATA.md)
+!/data_inputs/BACI_CEPII_trade/
+/data_inputs/BACI_CEPII_trade/*
+!/data_inputs/BACI_CEPII_trade/gloria_to_isic3.csv
+!/data_inputs/BACI_CEPII_trade/caliendo_parro_2015_thetak/
+/data_inputs/BACI_CEPII_trade/caliendo_parro_2015_thetak/*
+!/data_inputs/BACI_CEPII_trade/caliendo_parro_2015_thetak/theta_k.csv
+/intermediate_outputs/*
+# server output under 10 MB, which no provider distributes in this form (DATA.md)
+!/intermediate_outputs/tas_ssp2_annual.csv
+
+# --- outputs: only what JMP_V11.tex loads, plus the reference's pinned table ---
+/output/*
+!/output/values.tex
+!/output/values_empirics.tex
+!/output/tab_binning.tex
+!/output/tab_contrast_grid.tex
+!/output/tab_crh_northern.tex
+!/output/tab_ctrl_absorption.tex
+!/output/tab_exogeneity_mrt_migration.tex
+!/output/tab_fe_absorption.tex
+!/output/tab_ge.tex
+!/output/tab_ge_aggregate.tex
+!/output/tab_ge_band_ranked.tex
+!/output/tab_ge_latitude.tex
+!/output/tab_ge_north_sens.tex
+!/output/tab_ge_sensitivity.tex
+!/output/tab_oh_bounds.tex
+!/output/tab_oster_delta.tex
+!/output/tab_robustness_amenity_annual_formatted.tex
+!/output/tab_robustness_amenity_formatted.tex
+!/output/tab_robustness_prod_joint.tex
+!/output/MC_amenity_annual_fan_paper.pdf
+!/output/MC_amenity_daily_fan_paper.pdf
+!/output/MC_prod_annual_fan_paper.pdf
+!/output/MC_prod_daily_fan_paper.pdf
+!/output/fig_M1_net_by_latitude.png
+!/output/fig_contrast_grid.pdf
+!/output/fig_crh_responses.pdf
+!/output/fig_ge_tiers.pdf
+!/output/map_welfare_2100_country.pdf
+!/output/myplot_migration.pdf
+!/output/no_activity_map_smooth_light.pdf
+# an input without a producer in the package (DATA.md)
+!/output/oh_hdi_country_year.csv
+/output_*/
+
+# --- backups ---------------------------------------------------------------------
+*.bak*
+
+# --- logs ------------------------------------------------------------------------
+/logs/
+
+# --- the author's working files: self-tests, fixtures, registers, worksheets ------
+/tools/test_*
+/tools/fixtures/
+/tools/connus_faux/
+/tools/AMORCE.md
+/tools/AUDIT_DES_GARDES.md
+/tools/AUDIT_GRAPHE.md
+/tools/AUDIT_GRAPHE_aretes.tsv
+/tools/AUDIT_PAQUET.md
+/tools/EDITS_DIFFERES.md
+/tools/LISTE_POST_SOUMISSION.md
+/tools/REEMISSION_FINALE.md
+/tools/REPRISE_DELIBEREE.tsv
+/00_fetch/PROVENANCE_A_REMPLIR.md
+/MANIFESTE_intrants_paquet.md
+
+# --- the author's tools, which neither the chain nor the documentation calls ------
+/tools/audit_changed_values.py
+/tools/audit_graphe.py
+/tools/audit_graphe_py.py
+/tools/audit_graphe_r.R
+/tools/audit_paquet.py
+/tools/construit_anomalies_connues.py
+/tools/edit_borne.py
+/tools/emit_lockfiles.R
+/tools/emit_manifest_md5.py
+/tools/emit_squelette_provenance.py
+/tools/fiche_provenance.py
+/tools/reprise.R
+/tools/scan_affirmations_externes.py
+
+# --- LaTeX build ---------------------------------------------------------------
+/JMP_V11.pdf
+*.aux
+*.bbl
+*.blg
+*.brf
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# --- environments -----------------------------------------------------------------
+renv/library/
+renv/staging/
+renv/local/
+renv/python/
+__pycache__/
+*.pyc
+.Rproj.user/
+.Rhistory
+.RData
+
+# --- personal and system files -----------------------------------------------------
+/disclosure_rf.docx
+/disclosure_rf.pdf
+*.stackdump

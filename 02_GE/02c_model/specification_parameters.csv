@@ -1,0 +1,5 @@
+T;17;number of periods
+i_inner;1;iteration
+i_outer;1;iteration
+draw_inner;500;nb of draws inner
+draw_outer;1000;nb of draws outer

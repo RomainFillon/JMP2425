@@ -1,0 +1,1649 @@
+% ============================================================
+%  JMP_V11.tex  — "Revisiting the global distribution of climate damages"
+%  Romain Fillon  |  AER working-paper format
+%  Compiled by tools/compiler.py from the package root (see README, Check)
+% ============================================================
+
+\documentclass[12pt]{article}
+
+%% --- Layout ---
+\usepackage[letterpaper, top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{setspace}
+
+%% --- Fonts ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{setspace}
+%% --- Math ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%% --- Tables & Figures ---
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{graphicx}
+\graphicspath{{output/}}
+\usepackage{float}
+\usepackage{subfigure}
+
+%% --- References ---
+\usepackage{natbib}
+\usepackage[english]{babel}
+
+%% --- Hyperlinks (load after natbib) ---
+\usepackage[colorlinks=true, urlcolor=purple, linkcolor=blue,
+            citecolor=violet]{hyperref}
+
+%% --- Theorems ---
+\usepackage{amsthm}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}[proposition]
+
+%% --- Misc ---
+\usepackage{lscape}
+\usepackage{indentfirst}
+\usepackage{authblk}
+\usepackage{comment}
+\usepackage{xcolor}
+\usepackage{lineno}
+\renewcommand\Affilfont{\fontsize{8}{10.8}\itshape}
+
+%% ----------------------------------------------------------------
+%%  Title block
+%% ----------------------------------------------------------------
+\title{Revisiting the Global Distribution of Climate Damages}
+
+\author[1,2]{Romain Fillon}
+\affil[1]{ Paris-Saclay Applied Economics, Graduate School of Economics
+  and Management, 
+   Universit\'e Paris-Saclay, France}
+\affil[2]{ Centre International de Recherche sur l'Environnement et le D\'eveloppement, CIRED,  Universit\'e Paris-Saclay, France}
+\date{ October 2026}
+
+%% ----------------------------------------------------------------
+%% All computed magnitudes of the paper. GENERATED, do not edit:
+%%   02_GE/emit_values.py
+%% A macro that is not emitted shows as \PROVISOIRE (??) plus a LaTeX warning.
+\input{output/values.tex}
+%% Purely empirical numbers (no \GE*) — GENERATED, do not edit:
+%%   02_GE/emit_values_empirics.py  (run by 02_GE/02d_emit_latex.R)
+\input{output/values_empirics.tex}
+
+%% ----------------------------------------------------------------
+\begin{document}
+%% ----------------------------------------------------------------
+\onehalfspacing
+%TC:ignore
+
+\maketitle
+\begin{abstract}
+The world's cold economies are portrayed as climate winners. A hump-shaped response of output to annual mean temperature suggests why: they lie below the optimum, so warming should move them there. Measured by daily temperatures in a climate-economy model, that gain disappears: the share of world population in gaining cells falls from \GEpopGainAnnual\% to \GEpopGainDaily\%. The two metrics disagree about the winter that warming removes: the annual mean values it at least \EMPgapColdRatioFloor{} times what a daily regression does. The annual-mean slope measures not cold days but the cold–temperate gap between countries, and between one country's harsh and mild winters.\\
+\noindent\textbf{Keywords}: climate impacts, spatial general equilibrium, temperature distribution, adaptation.
+
+\noindent\textbf{JEL}: Q54, Q51, R13, F18, C51.
+\end{abstract}
+
+\thispagestyle{empty}
+\setcounter{page}{0}
+\pagebreak\newpage
+
+\doublespacing
+%TC:endignore
+
+\section{Introduction}
+\label{sec:introduction}
+
+Quantitative models used to project how climate damages fall across space
+predict that several of the world's coldest economies, among them Russia,
+Canada and the Nordic countries, will be net beneficiaries of warming
+\citep{krusell2022climate, cruz2024economic, nath2024much}. The
+prediction is consequential, because it concerns rich economies
+whose policy choices shape the global mitigation path. It follows
+ mechanically from one modelling convention: these models evaluate
+their damage function at a single summary of local temperature (an annual
+mean, or the decadal mean of a single month) and a hump-shaped
+response in the level of that summary places cold economies below the
+optimum and hot ones above it, so that warming moves the first towards the
+peak, faster still under polar amplification, and the second away from it. The empirical literature on climate
+impacts  abandoned the annual mean more than a decade ago, because the damage
+response is sharply non-linear at high frequencies and what harms output is
+the hot day rather than the average one \citep{schlenker2009nonlinear,
+burke2015global}, and the global estimates of mortality damages are built on the full distribution of daily temperatures for the same reason \citep{carleton2022valuing}. Whether that gap matters for the models' central
+prediction has not been tested. This paper tests it, and finds that the
+projected Northern gain is a property of the exposure metric.
+
+The test moves a single lever. I estimate dose-response functions for
+productivity from bilateral trade flows, following \citet{rudik2022economic},
+twice: once with exposure measured as the regional annual mean, as the
+spatial literature does, and once with exposure measured as the full
+distribution of daily temperatures. Sample, estimator, controls and fixed
+effects are the same in both estimations; only the way temperature enters
+differs. I then propagate each function through a dynamic spatial
+equilibrium model of trade and migration
+\citep{eaton2002technology, redding2017quantitative} along the same
+emissions pathway, SSP2-4.5. The model is solved in relative changes, so that
+unobserved fundamentals are never recovered by inversion; that choice closes
+the extensive margin of adaptation onto currently empty high-latitude cells,
+which part of the literature's Northern gains relies on, and it is therefore
+conservative against the result.
+
+The first result concerns identification. Across $\EMPgridProdNspec$
+specifications that vary the functional form and the winsorisation of the
+tails, the projected change in the Northern productivity fundamental above
+$45^\circ$N runs from $\EMPgridAnnualMin$ to $\EMPgridAnnualMax$
+under the annual mean, and the intervals exclude zero in $\EMPgridAnnualExcl$ of the $\EMPgridProdNspec$
+specifications. Under the daily distribution the same specifications
+run from $\EMPgridDailyMin$ to $\EMPgridDailyMax$, with a median of
+$\EMPgridDailyMedian$, and none excludes zero. The difference between the
+two is signed in $\EMPdiffExcl$ of $\EMPgridProdNspec$ specifications. An
+annual-mean specification does not deliver a coarser estimate of the daily
+object; it delivers a different one, and the confidence it displays about the
+North is manufactured by aggregating exposure before estimating.
+
+The second result concerns welfare. Propagated through the model, the
+annual-mean function gives the population above $45^\circ$N a cumulative
+welfare gain of $\GEnorthAnnual$ by \GEhorizonLabel; the daily-distribution
+function gives the same population a loss of $\GEnorthNet$, a loss that holds
+in \GEnorthDailyShareNeg{} Monte Carlo draws of the daily
+dose-response once each is propagated through the model. The loss is not
+carried by a handful of cells: $\GEnorthPopLoss\%$ of the Northern
+population lives in cells whose welfare falls once the daily distribution is
+imposed. At the world level the
+share of the population living in cells that gain from warming falls from
+$\GEpopGainAnnual\%$ under the annual mean (8\% in \citet{nath2024much}) to $\GEpopGainDaily\%$ under the
+daily distribution. The two findings fit together: at daily resolution the estimation leaves the sign of the North's own productivity response open, but welfare also depends on where people and production settle once the climate has changed. Solved with warming confined to the North, the annual-mean gain becomes a loss under daily exposure; warming elsewhere deepens the loss rather than creating it.
+
+The annual mean is a valid measure of exposure only if two places with the
+same mean temperature suffer the same damage, whatever the mix of hot and
+cold days behind that mean. They do not, for two reasons, and the paper
+separates and measures them. The first is Jensen's inequality: the damage
+function is non-linear, so its value at the mean day is not its average over
+the year; measured directly, this term is small. The second is that the two
+specifications do not estimate the same function. A regression on annual
+means never observes a freezing day or a day at $35^\circ$C; it observes that
+countries with a mean of $12^\circ$C produce more than countries with a mean
+of $0^\circ$C, and its slope absorbs everything that separates the two groups
+of countries, not the effect of a cold day. The daily specification must allocate the effect across the days a country actually experiences, and what it finds is that hot days are costly and freezing days are costly too. The two specifications therefore put different prices on the same winter. When a country's annual mean rises from 2 to $5^\circ$C, the annual curve credits it with what distinguishes countries that already sit at $5^\circ$C; the daily curve prices the freezing days that warming removes, and prices them at a fraction of what the annual mean implies. The projected Northern gain is the first of these two quantities, and it is not a measure of what a winter is worth.
+The result is not an artefact of the bilateral
+estimator or of the amenity channel. I re-run
+the contrast inside the estimation pipeline of \citet{cruz2024economic},
+on fundamentals inverted from their model, under their fixed effects and
+controls, and changing only the exposure metric; the annual-mean projection
+exceeds the daily one by $\EMPcrhNorthDiff$ in the log fundamental, and the daily projection can no longer be
+distinguished from zero. 
+
+Why has this not been done before? Models with endogenous emissions obtain regional climate
+by pattern scaling, which maps a global mean temperature path to regional annual means and
+produces nothing below them; no reduced form yet maps emissions to a regional distribution
+of daily temperatures, so a model can have endogenous emissions or the daily distribution,
+not both. Reading the annual-mean convention as the cautious option is a mistake:
+evaluating a non-linear response at a projected mean imposes that the mapping from a
+region's mean to its distribution is stationary under warming, and that assumption fails
+where it has been tested: the coldest winter days in North America warm about twice as fast as
+the seasonal mean \citep{blackport2024amplified}, and the hottest summer days
+in Europe warm faster than the summer mean \citep{patterson2023north}.
+
+Section~\ref{sec:empirical} sets out the model and the estimator,
+Section~\ref{sec:ge} reports the general-equilibrium results. 
+
+\section{Estimation of climate damages}
+\label{sec:empirical}
+
+\subsection{Dynamic spatial climate-economy model}
+\label{sec:model}
+ 
+The counterfactual runs in a dynamic spatial equilibrium model of trade and
+migration in the tradition of \citet{eaton2002technology} and
+\citet{desmet2018geography}. The model is deliberately standard: it is the
+class of model that \citet{desmet2024climate} survey and that the spatial
+literature on climate damages uses, so that nothing in the result comes from
+a departure in the economic environment, and the object that changes
+between scenarios is how climate exposure enters it.
+ 
+There are $N$ cells $r$ and discrete five-year periods $t$. Cell $r$ carries
+population $L_t(r)$, fundamental productivity $\bar Z_t(r)$, fundamental
+amenity $\bar a(r)$, a fixed stock of structures, and an exposure
+$\mathcal{E}_t(r)$ to climate. Climate enters through a multiplicative
+shifter on each fundamental,
+\begin{equation}
+Z_t(r)=\bar Z_t(r)\,\exp\!\bigl[\mathcal{E}_t(r)\,f_z(\cdot\,;\zeta_z)\bigr],
+\qquad
+a_t(r)=\bar a(r)\,L_t(r)^{-\lambda}\,\exp\!\bigl[\mathcal{E}_t(r)\,f_a(\cdot\,;\zeta_a)\bigr],
+\label{eq:channels}
+\end{equation}
+where $\bar Z_t(r)$ grows at an exogenous rate, $\lambda$ is the congestion
+elasticity, $f_z$ and $f_a$ are dose-responses mapping a temperature to a
+log shift in productivity and in amenities, $\zeta_z$ and $\zeta_a$ are
+their coefficient vectors, and $\mathcal{E}_t(r)f$ denotes the exposure of
+cell $r$ at date $t$ to a dose-response $f$. The two exposure metrics differ
+only in this operator. Under the annual mean,
+$\mathcal{E}_t(r)f=f\bigl(\bar T_t(r)\bigr)$: the function is evaluated at
+the cell's mean temperature. Under the daily distribution,
+$\mathcal{E}_t(r)f=\int f(T)\,dF_t(T\mid r)$: the function is integrated
+over the distribution of daily temperatures the cell experiences.
+The equilibrium conditions, the migration and trade structure and the calibration are
+standard and are set out in Supplement~\ref{supp:calibration}; the model is solved in
+relative changes, so that unobserved fundamentals are never recovered by inversion.
+
+
+\subsection{Estimation procedure}
+Following \citet{eaton2002technology} and \citet{rudik2022economic}, I
+exploit the fact that bilateral trade flows embed information about relative
+productivities and bilateral migration flows about relative amenities.
+The dose-responses are not taken from outside the model. Their functional
+form is chosen, as a polynomial or a natural spline in temperature bins, and
+what is estimated is the coefficient vector of that form: $\zeta_z$ is
+recovered from the model's bilateral trade equation and $\zeta_a$ from its
+bilateral migration equation, both derived from the equilibrium conditions
+of the model with temperature entering through the flexible
+form. The shifters of
+\eqref{eq:channels} and the counterfactual that propagates them therefore
+rest on the same structure, and the only free choice in the estimation is
+the form of $f$, which the specification grid varies. Each metric is paired with the
+dose-response estimated under it, so that a scenario is a pair
+$(\mathcal{E},f_z)$. In the body $f_a$ is set to zero, since bilateral
+migration data do not identify it; the
+choice is a lower bound rather than a neutral one:
+Supplement~\ref{supp:ge_amenity} shows the Northern contrast to be negative for
+every Northern economy at the interior estimate of $f_a$ as well, and deeper
+there, while the global loss the body reports is the smaller of the two. More details on the estimation are in supplements \ref{supp:productivity} and \ref{supp:amenity}.
+
+In the taxonomy of \citet{lemoine2025guide},
+this places the exercise in the class of structurally consistent
+general-equilibrium damage estimates: the object identified is not the local causal
+response to a transitory weather shock, but the damage function consistent with the
+spatial equilibrium that observed trade and migration flows reveal. Two features distinguish this from the panel fixed-effects estimates used in
+global-scale damage estimation \citep{cruz2024economic,desmet2024climate}. The
+dependent variable is a large matrix of bilateral flows rather than a
+country-level outcome, which draws on a different source of variation. And
+the fundamentals enter
+through observed administrative data rather than through model inversion of
+unobserved productivities and amenities. Relative to \citet{rudik2022economic}, I
+cover a larger set of countries, use relative rather than absolute winsorisation
+thresholds, and estimate the same
+dose-response under two competing definitions of climate exposure.
+
+The two metrics are the annual mean, which treats $\bar T_t(r)$ as a
+sufficient statistic for local climate with a shape-preserving shift under
+warming, and the full distribution of daily mean temperatures, which lets
+the shape of the intra-annual distribution change. Each is estimated over
+the same grid of $\EMPnSpecs$ specifications (polynomials of degree two to
+four, natural splines with three or four degrees of freedom, three
+symmetric winsorisation thresholds), because tail behaviour drives the
+result. Akaike weights place all mass on one form per arm, so that
+weighting amounts to selecting\footnote{The identification diagnostics
+report $\EMPgridNspec$ specifications: the contrast adds \EMPgridAddedForm{}
+as a test of flexibility, which carries no Akaike weight in either arm.}.
+The contrast is reported across the whole grid; the dose-responses of
+Figure~\ref{fig:drf} are drawn for one specification, with a band of
+$B=\EMPnMC$ Monte Carlo draws from the clustered variance that reports
+parameter uncertainty conditional on that form.
+\subsection{Productivity from bilateral trade}
+\label{sec:identification}
+
+At equilibrium, normalising region $r$'s expenditure on sector-$k$ goods from
+$s$ by its domestic absorption cancels the importer-side price index
+\citep{eaton2002technology,head2014gravity}:
+\begin{equation}
+\log\frac{X^k_t(rs)}{X^k_t(rr)}
+= \theta\bigl[\mathcal{E}_t(s)f_z-\mathcal{E}_t(r)f_z\bigr]
++ \zeta_y\,\theta^k\log\frac{y_t(s)}{y_t(r)}
++ \zeta_C^{\top}C_{rs}+\rho^k_t+\varepsilon^k_{rst},
+\label{eq:trade_estimation}
+\end{equation}
+where $\rho^k_t$ are product$\times$year effects, $C_{rs}$ collects
+time-invariant gravity controls (distance, common language, colonial link,
+trade agreement), and errors are clustered by origin and
+destination. The trade elasticity $\theta$ is imposed rather than estimated, at the
+value of the general equilibrium
+\citep{desmet2018geography}. The income
+ratio enters as a control rather than as a structural term, weighted by
+the sectoral trade elasticities $\theta^k$ of \citet{caliendo2015estimates},
+because it follows the sectoral exporter's cost channel. The
+climate term is not weighted by $\theta^k$: $f_z$ is a fundamental of the
+location, common to sectors, and sectoral weights would load the
+composition of each pair's trade onto the recovered dose-response. I estimate \eqref{eq:trade_estimation} by PPML on BACI--CEPII
+bilateral flows and GLORIA domestic absorption, 1995--2019, $\EMPtradeNsectors$
+manufacturing and agricultural sectors, $\EMPtradeNobsStageThree$ observations.
+
+\par The climate term is a difference in exposure between exporter and importer,
+and it is identified from the cross-section of that difference across pairs,
+not from its variation within pairs over time. The choice is deliberate and
+forced. Deliberate, because the counterfactual is a permanent shift in
+climate, and within-pair variation recovers the response to weather
+\citep{deschenes2007economic,burke2015global}. Forced, because bilateral
+temperature differentials are quasi-permanent: pair$\times$product effects
+absorb $\EMPfeAbsorption\%$ of their variance, and their within-pair standard
+deviation is $\EMPwithinPairSD\%$ of the total. A differenced estimator is blind to a globally synchronous shock only when the response is
+linear: with curvature, a uniform shock shifts comparative advantage towards the partner on
+the flatter part of the response, and that curvature is what the bin specification recovers
+from cross-sectional variation in exposure. What cancels in every ratio is the damage component common to all
+countries, the object aggregate time-series estimators identify \citep{bilal2026macroeconomic};
+the two designs are complementary.
+
+The threat to a cross-sectional design is that cold and warm country pairs
+differ on dimensions other than climate, and that some of those dimensions
+are correlated with temperature. Three pieces of evidence bear on it. The gravity controls absorb
+\EMPctrlAbsorpLo--\EMPctrlAbsorpHi\% of the between-pair climate variation
+without being collinear with the climate term, so they remove the part of
+the confounding that distance and history induce. Coefficient stability in the sense of \citet{oster2019unobservable} gives, over the
+$\EMPgridNspec$ specifications on which the diagnostics are computed, a smallest positive
+selection ratio of $\delta^* = \EMPosterDelta$ (\EMPosterDeltaSpec) and $\EMPosterDeltaRef$
+for the reference specification: unobservables would have to be at least \EMPosterDelta{}
+times as important as the gravity controls to explain the response away, against a
+threshold of one. A negative $\delta^*$ comes out in \EMPosterDeltaNegN{} specifications,
+the case in which selection would have to run against the observed correlation, and the
+minimum is attained where the coefficient moves by \EMPosterMoveRel\% with the controls,
+against \EMPosterMoveRelRef\% for the reference. Under exporter$\times$year effects, which
+absorb the exporter's non-climate capability in full \citep{astier2026quantifying}, the
+hot-side slope keeps its sign at $\EMPohSlopeExporter$ per $^\circ$C with a band that
+excludes zero; the other schemes leave its precision open. A separate threat applies to daily
+specifications estimated in panels: \citet{jones2026binning} show that extreme-day counts
+carry warming-induced trends correlated with baseline climate. The bias they describe comes from the variation within a unit over time. The estimator here draws almost nothing from it: replacing each pair's differentials by their 1995--2019 means moves the Northern contrast by $\EMPbinShiftDbetween$ of its standard error. Adding pair$\times$product fixed effects, the design they study, turns the cold arm positive; estimating within five-year windows, their remedy, reduces it (Supplement~\ref{supp:binning}).
+One further point applies to the daily arm alone. A confound that
+separates rich cold countries from poor hot ones loads on the mean of the
+temperature distribution, which the two arms share. What the daily arm
+uses in addition is the shape of the distribution at a given mean: two
+countries with the same annual mean can spend their year in mild winters
+and mild summers or in freezing winters and hot summers, and that
+difference is a matter of continentality, not of development. The curvature of
+the response is identified from that variation, and it is the curvature, not
+the level, that the contrast of Section~\ref{sec:contrast} turns on. The
+replication of that contrast on fundamentals inverted from the
+\citet{cruz2024economic} model, under their sub-region$\times$period fixed effects
+(Supplement~\ref{supp:crh}), is the check that none of this rests on the bilateral data or
+on the trade fundamental.\\
+
+\par Throughout, a log point is one hundredth of a log; projected changes
+and welfare effects are reported as changes in logs, and ratios between
+reported quantities are computed before rounding.
+
+\par Figure~\ref{fig:drf} draws the estimated $f_z$ under each metric on common
+axes. The daily-distribution response is flat over an optimum plateau near
+$5$--$10^\circ$C and falls above $15$--$20^\circ$C, to
+$\EMPhotDropThirty$ log points below the plateau at a daily mean of
+$30^\circ$C; the hot tail is estimated stably across the grid, within
+$\EMPspecInvarMin$ to $\EMPspecInvarMax$ log points at $30^\circ$C
+relative to each specification's own maximum; the cold branch is not: few
+country-sector-years carry mass below $5^\circ$C, and the plateau's location
+is a parametric extrapolation with wide intervals. The annual-mean response
+is hump-shaped with its optimum near $12^\circ$C and falls away towards cold
+annual means. The two functions differ most over the cold range, and by an
+order of magnitude less over $20$--$30^\circ$C.
+Where they disagree is therefore the winter tail, the part of the
+distribution the annual mean cannot represent; what that disagreement does
+to the projected North is the next section.
+
+\begin{figure}[!ht]
+\centering
+\begin{minipage}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{MC_prod_daily_fan_paper.pdf}\\[-2pt]
+  {\small (a) Daily temperature distribution}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{MC_prod_annual_fan_paper.pdf}\\[-2pt]
+  {\small (b) Annual mean temperature}
+\end{minipage}
+\caption{Productivity dose-response under the two exposure metrics. Grey: the \EMPgridProdNspec{}
+  specifications of the grid. Coloured: the specification carrying the Akaike weight
+  (\EMPfigDrfSpecDaily{} in (a), \EMPfigDrfSpecAnnual{} in (b)), with the median, Q25--Q75 and
+  Q05--Q95 of \EMPnMC{} Monte Carlo draws of its coefficients. Curves are shifted to pass
+  through zero at $0^\circ$C. Bars: the arm's own exposure, share of country-year days in (a)
+  and of countries in (b).}
+\label{fig:drf}
+\end{figure}
+
+\subsection{Amenities are not identified from bilateral migration}
+The same logic applies to amenities: the bilateral migration equation of the model, with
+the pair effect absorbing fundamental amenities and migration costs, is estimated by PPML on
+the \citet{abel2019bilateral} five-year flows. The temperature
+terms are jointly insignificant in every cell of the amenity grid under either metric
+(daily: $p=\EMPamenPjointLo$--$\EMPamenPjointHi$; annual:
+$p=\EMPamenAnnualPjointLo$--$\EMPamenAnnualPjointHi$), and a placebo on lead differentials is
+not rejected. That null is uninformative: the level of $f_a$ is not identified, since the pair
+effect absorbs the time-invariant differential, and what survives it, the within-pair
+change over five years, is too small for the test to have power against the alternatives of
+interest. I therefore bound $f_a$ rather than rely on its
+estimate: monotonicity and the restriction that non-market damages do not exceed market
+ones give the identified set $[0,\hat f_z]$, which the migration estimate exceeds by a
+factor of \EMPamenScaleExcess. The body runs the counterfactual at the lower bound,
+$f_a=0$, so that welfare flows through productivity alone; Supplement~\ref{supp:ge_amenity}
+re-runs it at the estimate, a stress test beyond the admissible bound, which enlarges the
+global loss and deepens the Northern contrast.
+
+\subsection{The contrast between metrics}
+ \label{sec:contrast}
+
+The two dose-responses of Figure~\ref{fig:drf} are estimated on the same
+cells with the same controls, so the natural test of whether the exposure
+metric matters is to project each onto the same warming and compare.
+Figure~\ref{fig:contrast} does this for the productivity fundamental of the
+North above $45^\circ$N. For each of the $\EMPgridProdNspec$ specifications
+of the grid it reports the projected change by 2100 under
+SSP2-4.5 when exposure is the annual mean, when it is the daily distribution,
+and the difference between the two with its 95\% interval. Nothing is solved
+in general equilibrium here: the projection integrates each estimated function against the
+change in each cell's exposure, population-weighted, and isolates what the estimation
+delivers before the model reallocates anything. \\
+ 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{fig_contrast_grid.pdf}
+\caption{Projected change in the Northern log productivity fundamental above $45^\circ$N by
+  \GEhorizonLabel{} under SSP2-4.5, in partial equilibrium, for each of the \EMPgridProdNspec{}
+  specifications. Top: annual mean (blue) and daily distribution (red), with 95\% intervals.
+  Bottom: their difference, with the interval (clustered by origin and destination) carrying the covariance (black) or treating the arms as independent (grey).}
+\label{fig:contrast}
+\end{figure}
+
+\par Three facts are read off the figure. First, in the top panel, under the
+annual mean the Northern change runs from $\EMPgridAnnualMin$ to $\EMPgridAnnualMax$ log
+points, and the intervals exclude zero in $\EMPgridAnnualExcl$ of the $\EMPgridProdNspec$
+specifications. A literature that measures exposure by annual means will find a precise positive Northern
+response under almost any form it tries.
+
+Second, still in the top panel, under the daily
+distribution the same specifications run from $\EMPgridDailyMin$ to $\EMPgridDailyMax$, with a
+median of $\EMPgridDailyMedian$, with $\EMPgridDailyNneg$ below zero and none excluding
+it; their intervals together span
+$[\EMPgridDailyCIloMin,\EMPgridDailyCIhiMax]$. The daily arm is therefore
+consistent with a Northern gain, with a Northern loss and with no response
+at all, and what it establishes is that the sign of the direct Northern
+response is not identified at this resolution. 
+
+Third, in the bottom panel, the
+difference between the two arms excludes zero in $\EMPdiffExcl$ of
+$\EMPgridProdNspec$ specifications, which is a stronger statement than the first two would give
+on their own. 
+
+The two arms are estimated on the same
+observations, and estimates drawn from the same data move together. A sample
+that happens to make the annual estimate larger tends to make the daily
+estimate larger as well, so that the gap between them is more stable across
+samples than either level; formally, the variance of a difference subtracts
+twice the covariance, and here the covariance is positive, with a
+correlation between the two coefficient vectors of $\EMPdiffRhoLo$ to
+$\EMPdiffRhoHi$ across the grid. Carrying that covariance, the standard error
+of the difference is $\EMPdiffSEshareLo$ to $\EMPdiffSEshareHi\%$ of what it
+would be if the two arms were treated as independent. Treating them as
+independent therefore overstates the uncertainty of the difference, and it
+is the conservative calculation: under it, the difference still excludes
+zero in $\EMPdiffExclNaive$ of $\EMPgridProdNspec$ specifications, the
+exceptions being \EMPdiffExclNaiveExceptions. Discounting
+the covariance entirely would still find the difference signed across most of the
+grid. \\
+
+
+The same erosion appears in a design that shares neither the data, nor the unit, nor the
+fundamental of the bilateral estimator. Supplement~\ref{supp:crh} re-runs the contrast
+inside the estimation of \citet{cruz2024economic} on fundamentals inverted from their
+model (a cell of one degree across four decadal cross-sections, under their
+sub-region$\times$period fixed effects, their controls and their estimation sample)
+using my own inversion rather than their deposited series, so that inversion, estimation
+and projection stay inside one reproduction, changing only the exposure metric. Under the annual mean the projected Northern
+productivity change is significantly positive in \EMPcrhSigPosAnnual{} cases out of \EMPcrhNunits{}; under
+the daily distribution it is significantly positive in \EMPcrhSigPosDaily{} case out of \EMPcrhNunits{},
+and for the Northern aggregate the annual-mean projection exceeds the daily one by
+$\EMPcrhNorthDiff$ in the log fundamental $[\EMPcrhNorthDiffLo,\EMPcrhNorthDiffHi]$, the
+daily projection being no longer distinguishable from zero. An omitted confound specific to bilateral trade cannot account for a loss of
+identification in a design built on inverted cell fundamentals.
+\section{General-Equilibrium Illustration}
+\label{sec:ge}
+Section~\ref{sec:contrast} established what the two metrics deliver before
+the economy adjusts: a Northern gain under one, an unsigned response under
+the other. Whether that difference survives once trade and migration
+reallocate activity, and what it amounts to in welfare, is a question the
+estimates cannot answer on their own. This section propagates each
+dose-response through the model of Section~\ref{sec:model} along the same
+emissions pathway and reports the difference.
+
+
+\subsection{Scenarios and data}
+\label{sec:ge_scenarios}
+
+I simulate the model along three paths that share the same exogenous
+population and productivity trajectories and differ only in climate. The
+no-climate-change baseline holds exposure at its 2015 value, so that the
+climate multiplier in relative changes equals one in every period; Scenario~1
+applies the annual-mean pair
+$(\mathcal{E}^{\text{ann}},f_z^{\text{ann}})$; Scenario~2 applies the
+daily-distribution pair $(\mathcal{E}^{\text{daily}},f_z^{\text{daily}})$; a
+third scenario applies the daily response to annual-mean exposure,
+$(\mathcal{E}^{\text{ann}},f_z^{\text{daily}})$, and serves the decomposition of
+Section~\ref{sec:ge_gap}.
+The scenarios are solved on one specification per arm: for the daily response,
+\EMPfigDrfSpecDaily{}; for the annual one, \EMPfigDrfSpecAnnual{}.
+The reported object for a cell is the cumulative log change of period
+utility relative to the baseline at 2100,
+$\sum_{s\le t}\log[\dot u^{\text{scen}}_s(r)/\dot u^{\text{base}}_s(r)]$,
+aggregated with population weights, and the daily extra is the
+difference between the two scenarios. It is a level effect on regional utility at the horizon, not a growth effect \citep{nath2024much}. 
+
+The grid
+has $\GEncells$ inhabited $1^\circ$ cells and $\GEnperiods$ five-year
+periods. Cells outside the \citet{cruz2024economic} grid, \GEdomPopOutShare\% of world population,
+are excluded (Supplement~\ref{supp:calibration}). Initial trade shares come from
+\citet{cruz2024economic} trade-cost matrix, initial migration shares from
+\citet{abel2019bilateral} and \citet{niva2023world}, and population and
+productivity paths from SSP2 \citep{kc2024updating}. Productivity growth is the average of the IAMC models available for each country under
+SSP2 --- OECD Env-Growth \citep{dellink2017long}, IIASA GDP and
+ PIK GDP-32 \citep{leimbach2017growth}.
+Local productivity is
+proxied from observed GDP per capita and set to zero in cells without positive productivity and wage or with at most
+$\GEdensityCut$~\GEdensityCutUnit, so that the
+model is never inverted: activity can
+reallocate across inhabited cells but not into empty ones. This closes the
+extensive margin of adaptation on which part of the Northern
+gains rests, and it is conservative against the contrast examined here. Future temperatures are the ensemble mean of the \GEcmipModels{} CMIP6 Earth System Models
+under SSP2-4.5, bias-adjusted and downscaled to $0.5^\circ$ against the W5E5 observational
+dataset by ISIMIP3b \citep{lange2019trend, lange2021isimip3b}.
+What the daily metric takes from them is the
+distribution of daily temperatures pooled over each five-year period, which
+is a climatological object rather than a weather trajectory; where regional
+extremes are misrepresented, the assessed direction of the bias is an
+understatement of hot extremes \citep{vautard2023heat}. \\
+
+Every magnitude below is a difference between two scenarios run on the same
+initial state, the same solver and the same iteration path. Whatever the
+calibrated initial state carries enters both scenarios and cancels to first
+order in the difference, and I do not report levels. The only uncertainty
+propagated through the model is the Monte Carlo band on the dose-responses.
+
+\subsection{What the metric governs}
+\label{sec:ge_metric}
+
+Table~\ref{tab:ge} reports the three margins at 2100. At the world level the
+daily distribution adds losses to the annual mean rather than redistributing
+them: the daily extra is $\GEworldExtra$ on top of an annual total
+of $\GEworldAnnual$, and it is negative at every horizon, so that by 2100 it
+adds losses equal to $\GEampRatio\%$ of the annual total. The share of the
+world population living in cells that gain from warming falls from
+$\GEpopGainAnnual\%$ under the annual mean to $\GEpopGainDaily\%$ under the
+daily distribution.
+
+Above $45^\circ$N the annual-mean gain of $\GEnorthAnnual$ becomes
+$\GEnorthNet$. The daily extra of $\GEnorthDailyExtra$ is negative for
+$\GEnorthPopLoss\%$ of the $\GEnorthPopM$~million people in that aggregate,
+and in the central run the daily total is negative at every latitude
+threshold of the grid, and within rounding of zero above $66.5^\circ$N,
+where \GEnorthArcticPopM~million people live
+(Section~\ref{sec:ge_north} reports the draws); the second line under each unit in
+Table~\ref{tab:ge} shows that the loss holds across the Monte Carlo band above
+$45^\circ$N and not above $66.5^\circ$N. Among the cold
+economies, the annual mean projects a gain in $\GEnorthNGain$ of
+$\GEnorthNcty$ and the daily extra is negative in $\GEnorthNExtraNeg$ of $\GEnorthNcty$,
+so that every gain the annual mean projects is removed by the daily
+distribution. What separates these economies is the size of the gain the
+daily distribution removes, not whether it is removed: Russia enters with
+$\GEctyRusAnnual$ and carries a daily extra of $\GEctyRusDailyExtra$, while
+Germany enters with $\GEctyDeuAnnual$ and needs only $\GEctyDeuDailyExtra$.
+
+\input{output/tab_ge.tex}
+
+
+
+Figure~\ref{fig:ge_maps} shows the geography: the annual-mean panel's beneficiaries are
+among the daily-total panel's losers, and the daily extra is deepest where the annual-mean
+gain is largest.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{map_welfare_2100_country.pdf}
+\caption{The three maps show the country-aggregate, population-weighted
+  cumulative $\Delta\log U$ by \GEhorizonLabel\  under the daily total, the annual total
+  and the daily extra, with amenities at the lower bound. The colour scale is
+  common to the three panels and centred at zero.}
+\label{fig:ge_maps}
+\end{figure}
+
+
+\newpage 
+
+\par Figure~\ref{fig:ge_tiers} reports the three margins by population-weighted
+quartile of 1990 GDP per capita. The daily total loads heaviest on the poorest
+quartile (\GEtierQoneDaily{} against \GEtierQfourDaily{} in the richest) but aggregating exposure
+understates damages at both ends of the income distribution: in the poor hot
+economies through the hot tail, and in the rich cold ones through the removal
+of the annual-mean gain. The band on the daily total is negative at every
+quartile.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.8\textwidth]{fig_ge_tiers.pdf}
+\caption{Welfare effects by \GEhorizonLabel{} by quartile of 1990 GDP per capita
+  (population-weighted), cumulative $\Delta\log U$, amenities at the lower bound. Bars: daily
+  total, annual total, daily extra; segments on the daily total: 5th--95th percentile range
+  across \GEarmBnDraws{} Monte Carlo draws of the daily dose-response solved in general
+  equilibrium.}
+\label{fig:ge_tiers}
+\end{figure}
+
+\subsection{Where the gap comes from}
+\label{sec:ge_gap}
+
+The two scenarios compute different objects. Scenario~1 evaluates a function
+estimated on annual means at the cell's annual mean,
+$f_z^{\text{ann}}(\bar T)$, Scenario~2 a function estimated on
+daily bins over the distribution the cell experiences,
+$\int f_z^{\text{daily}}\,dF$. Their difference separates into two terms,
+\[
+\underbrace{f_z^{\text{ann}}(\bar T)-f_z^{\text{daily}}(\bar T)}_{\text{different function}}
+\;+\;
+\underbrace{f_z^{\text{daily}}(\bar T)-\int f_z^{\text{daily}}\,dF}_{\text{different evaluation}} .
+\]
+The second term is Jensen's inequality, which evaluates one function at a
+point rather than integrating it. The first term compares two different
+functions at the same argument, and it is what aggregating exposure before
+estimating produces. The third scenario, $(\mathcal{E}^{\text{ann}},f_z^{\text{daily}})$,
+holds the function fixed and changes only the evaluation. At the Northern
+aggregate, of a daily extra of $\GEnorthDailyExtra$, the evaluation term
+contributes $\GEnorthChanEval$ and the function term $\GEnorthChanShape$. The
+Jensen term is \GEnorthChanSameSign\ and $\GEnorthChanRatio$ times smaller in
+absolute value than the function term. The mechanism is that the
+annual-mean function assigns to a warming cold country a benefit that the
+daily function does not find in the same country's record. Finland's
+population-weighted mean rises from $\EMPfinTmeanBase$ to
+$\EMPfinTmeanProj^\circ$C by \GEhorizonLabel; the annual function returns a
+productivity gain of $\EMPfinGainAnnual$ in log productivity and the daily
+function
+$\EMPfinGainDaily$: both functions leave Finland better off, and they disagree
+by a factor of $\EMPfinGainFactor$ on how much. The country still spends
+$\EMPfinDaysColdProj$ days a
+year below $-10^\circ$C at the end of the projection and its days above
+$25^\circ$C rise from $\EMPfinDaysVHotBase$ to $\EMPfinDaysVHotProj$. Neither
+tail is visible at the mean. 
+
+Put plainly, warming a cold country removes freezing days and adds hot days,
+and a regression on days finds both to be costly. What it does not find is the
+value the annual mean places on the freezing days: over the cold range the
+annual-mean function values the same loss of cold days at least
+\EMPgapColdRatioFloor{} times what a regression on days values it at. Measured
+by the annual mean, the same country simply becomes a warmer country, and is
+credited with whatever a warmer mean has been worth in the data: across
+countries or across cells, the income gap between cold and temperate ones; across
+years, a milder winter in the same place. These are the two sources of variation an
+annual-mean regression can use. The estimator of
+Section~\ref{sec:identification} uses the first across countries; the design of
+Supplement~\ref{supp:crh} uses it across cells within a sub-region and period, with
+\EMPcrhWithinCellTmeanProd\% of the identifying variance of the mean temperature lying
+within cells across periods; and the Northern gain erodes under both. The second source is
+the one panel designs use, and the one \citet{jones2026binning} show to carry
+warming-induced trends (Supplement~\ref{supp:binning}). That credit is not
+the price of any particular day, and a regression on days cannot reproduce it.
+
+The gap can also be located on the temperature support without solving the
+model. Integrating each estimated function against the change in each
+Northern cell's daily exposure and attributing the difference to the
+temperature bins in which it arises, \EMPgapShareOfContrast\% of the
+Northern contrast comes from the two functions differing at the same
+temperature rather than from the two metrics integrating against different
+objects; of that share, \EMPgapShareBelowZero\% lies below $0^\circ$C and
+\EMPgapShareAboveTwenty\% above $20^\circ$C. The two functions disagree about
+the value of the freezing days that warming removes, and they agree about the
+cost of the hot days it adds. The two shares are not comparable: the
+general-equilibrium split divides a propagated welfare difference, the local
+one divides the partial-equilibrium contrast of the estimated functions.
+
+\subsection{Why the Northern gain does not survive equilibrium}
+\label{sec:ge_north}
+
+The daily metric does not sign the Northern response in partial
+equilibrium. The equilibrium loss above $45^\circ$N is nonetheless not a coin
+flip, because the Northern daily total also carries what warming elsewhere
+does to the North. Two further pairs of runs measure this: in the first,
+warming outside the North is switched off and only the cells at or above
+$45^\circ$N warm; in the second, warming is applied only outside the North
+(Supplement~\ref{supp:exposure_masks}). Warming outside the North accounts for
+$\GEmaskNonNorthWarmingDailyShare\%$ of the Northern daily total. Warming in
+the North alone changes Northern welfare by $\GEmaskNorthWarmingAnnual$ under
+the annual-mean function and by $\GEmaskNorthWarmingDaily$ under the daily
+one, so the reversal of sign happens with warming confined to the North.
+What warming elsewhere does to the North is nearly the same under the two
+functions and largely cancels in the daily extra: with warming confined to
+the North, the Northern daily extra is $\GEmaskNorthWarmingExtraShare\%$ of its
+value when the whole world warms, and warming outside the North accounts for
+$\GEmaskNonNorthWarmingExtraShare\%$. 
+
+What the daily distribution adds is an income loss that grows with latitude. Net of the amenity term, which moves only through congestion at $f_a=0$,
+the daily extra is $\GEchanIncomeMid$ in the temperate band,
+$\GEchanIncomeSub$ between $45$ and $60^\circ$N and $\GEchanIncomeArc$
+above $60^\circ$N (Table~\ref{tab:ge_decomp_lat}).
+Nearly all of it is produced by warming in the North itself rather than imported from
+elsewhere, and it comes from the central draw of the dose-response.
+
+Across $\GEarmBnDraws$ Monte Carlo draws of the
+daily dose-response, each propagated through the model, the Northern daily
+total is negative in \GEnorthDailyShareNeg{} draws, with a median of
+$\GEnorthDailyRqMed$ and a 5th--95th percentile range of $\GEnorthDailyRqLo$
+to $\GEnorthDailyRqHi$ (Table~\ref{tab:ge}). The loss is a property of the
+Northern aggregate rather than of its coldest members: above $66.5^\circ$N the
+daily total is negative in \GEshareNegNorthArctic{} draws, and for Finland
+in \GEshareNegFin{}, so that the sign of the far North is not determined at
+daily resolution, in general equilibrium as in the estimation.
+
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+ 
+There are many reasons to expect climate change to be costly in the North,
+for instance biodiversity collapse, permafrost thaw under roads, pipelines and buildings, or boreal
+wildfires. This paper has set those channels aside and asked a narrower
+question, about the one channel the spatial models of climate damages do
+quantify, the effect of temperature.
+
+Spatial models of climate damages project welfare gains for the world's
+cold economies. This paper has argued that those gains are a property of the
+exposure metric. Estimated on the same data with the annual mean and with the
+distribution of daily temperatures, the productivity response projects a
+precise Northern gain under the first and a change centred on zero under the
+second, and the difference between the two is signed in every specification
+of the grid; propagated through a spatial equilibrium model of trade and
+migration, the annual-mean gain of the population above $45^\circ$N becomes
+a loss, and the share of the world population living in cells that gain from
+warming falls from $\GEpopGainAnnual\%$ to $\GEpopGainDaily\%$. The reason is
+not that a non-linear function is evaluated at the wrong point. It is that
+aggregating exposure before estimating recovers a different function, one
+that absorbs everything separating cold countries from hot ones and assigns
+to the freezing days that warming removes a value that a function estimated
+on days does not find. This is a statement about the productivity response, not about daily
+resolution as such: where the cold arm of the dose-response is real, as for mortality,
+daily-resolution estimates project gains for cold regions \citep{carleton2022valuing}, and
+nothing here contradicts them. What the annual mean does to productivity is to manufacture a
+cold arm the daily data do not support; what \citet{jones2026binning} show for panels is that
+extreme-day counts can manufacture one too.
+ 
+The exercise takes the emissions pathway as given, and the limit is a
+missing object rather than a conceptual one. The emulators embedded in models
+with endogenous emissions map cumulative emissions to pattern-scaled regional
+annual means and produce nothing at the daily resolution on which welfare
+depends. Emulators at monthly resolution now exist \citep{nath2022mesmer},
+and they recover the seasonal amplitude that annual means discard; the object
+this paper requires is one step further, a reduced form from cumulative
+emissions to the shape of the regional daily distribution. Until it exists,
+endogenous-climate and distributional-climate analyses sit on separate
+branches of the literature, and this paper establishes what the choice
+between them costs: the branch that buys endogenous emissions at the price of
+the annual mean buys it at the price of the sign.
+ 
+%TC:ignore
+
+\begin{spacing}{1}
+
+%% ================================================================
+%  References
+%% ================================================================
+\bibliographystyle{chicago}
+\bibliography{References_JMP}
+
+\end{spacing}
+
+\newpage 
+%% ================================================================
+%  Appendix
+%% ================================================================
+\appendix
+
+\noindent
+
+\section*{Appendix}
+Supplement~\ref{supp:calibration}
+documents the calibration of the initial equilibrium and the climate inputs.
+Supplements~\ref{supp:productivity} and~\ref{supp:amenity} each treat one
+estimated dose-response function end to end.
+Supplement~\ref{supp:ge} reports the general-equilibrium detail. A final section \ref{supp:crh} sets the same question in an independent design \citep{cruz2024economic}.
+\section{Calibration and Climate Inputs}
+\label{supp:calibration}
+%% ================================================================
+
+The counterfactual evaluates damages along an exogenous emissions path; it
+does not optimise emissions. Its calibration targets a 2015 initial state in
+levels and geography from published sources, and lets the dynamics run in
+relative changes from there. This section documents the initial state, the
+reason the model is not inverted, and what is taken from the climate
+projections.
+
+\subsection{Data} 
+The world is discretised on a $1^\circ$ grid of $\GEncellsPotential$
+potential cells, of which $\GEncells$ have positive productivity, positive
+wage and population above one; the rest (oceans, deserts, ice) carry no
+economic content. \GEdomCellsOut{} further inhabited cells, holding \GEdomPopOutM{} million people or
+\GEdomPopOutShare\% of world population, lie outside the \citet{cruz2024economic} grid:
+\GEdomCtyOutN{} countries and territories, \GEdomCtyOutPopM{} million people in all, are
+outside it entirely, and \GEdomCtyPartialN{} countries in part. The \GEdomMigLostM{}
+million international migrants of the 2010--2015 window whose origin or destination is one
+of these cells are dropped with them. Cells are mapped to countries through GHSL population
+shares within GADM polygons. The
+$1^\circ$ resolution is that of the \citet{cruz2024economic} trade-cost
+matrix.
+Fundamental productivity is proxied by GDP per capita
+\citep[gridded GDP from][GHSL population, 2015]{kummu2025gdp},
+winsorised at the upper $5\%$ tail; the wage is that proxy times the ILO 2015
+country labour share (regional imputation, then global mean, where missing).
+Initial trade shares follow $\lambda_0(rs)\propto Z(s)^{\theta}\,w(s)^{-\alpha\theta}
+\tau_{rs}^{-\theta}$ with $\theta=\GEtheta$ \citep{desmet2018geography} and
+$\alpha=0.6$ \citep{desmet2015spatial}, and the \citet{cruz2024economic}
+cost matrix,
+rows summing to one over sources. At $\approx$100~km resolution this grid is
+close to autarky: $\GElamDiagShareHigh\%$ of cells spend more than $0.99$ of
+their income on their own output, and the mean import share is
+$\GEimportShareMean\%$. GDP per capita is not an Eaton--Kortum
+fundamental, so the raw allocation $(Z,w,L,\tau)$ need not clear exactly.
+Because the model is solved in relative changes, only $\lambda_0$ enters, and
+any residual adjustment transient is common to the three scenarios and
+differences out of every reported contrast. 
+
+The five-year transition matrix $\mu_0$ combines international bilateral
+flows from \citet{abel2019bilateral} (2010--2015), allocated to cells by
+within-country population shares, and internal flows reconstructed from the
+\citet{niva2023world} net migration stocks (2010--2014) by an outer product of origin and destination shares. Within each country, internal flows
+are allocated across the cells in which it holds at least half of the population, origins
+weighted by the country's population in the cell and destinations by the positive part of
+the net migration stock that the international flows leave there; the cross-border mass
+this leaves is \GEmigInternalCrossM{} million over the window,
+\GEmigInternalCrossShare\% of the internal block. Diagonals are zeroed,
+stayers added, rows normalised to transition probabilities, flows capped by
+population. Three limitations: the within-country allocation assumes no
+sub-national distance friction; the internal gross structure is
+reconstructed from net stocks, not observed; and the same matrix is applied
+at each of the $\GEntransitions$ transitions, so that the refugee-driven flows
+of the 2010--2015 window (Pakistan, Afghanistan, Syria) recur throughout.
+Figure~\ref{fig:mig_latitude} shows net losses from the tropics to about
+$35^\circ$N and net gains over the temperate belt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{fig_M1_net_by_latitude.png}
+\caption{Net migration by latitude from the calibrated initial matrix.}
+\label{fig:mig_latitude}
+\end{figure}
+
+Spatial models of climate damages recover unobserved fundamentals by
+inverting the model on an observed equilibrium. The inversion assigns a
+positive fundamental to every cell, including empty ones, so that under
+warming activity can relocate into them and the gain is counted as
+adaptation. This extensive margin is part of what generates the Northern
+gains in that literature, and two facts argue against relying on it.
+Observed international net migration over 1990--2020, a period of roughly
+$0.6^\circ$C of warming, shows no clear accelerating northward trend
+(Figure~\ref{fig:migration}): legal barriers, income gaps and networks have
+dominated the climate signal at these horizons
+\citep{cattaneo2019human}. And the cells into which
+the inverted margin routes activity are largely cells with no activity today
+(Figure~\ref{fig:activity_map}); their emptiness has causes (institutions,
+infrastructure, property rights, labour markets) that warming does not
+remove. I therefore proxy productivity from observed data, set it to zero
+in cells without positive productivity and wage or with at most $\GEdensityCut$~\GEdensityCutUnit,
+and let adaptation run only on
+the intensive margins the data record. Re-opening the extensive margin
+would add cold high-latitude destinations for displaced activity, and so
+amplify the annual-mean Northern gain; the restriction is conservative
+against the contrast the paper examines.
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[width=0.8\textwidth]{myplot_migration.pdf}}
+\caption{Net international migration stock by latitude band and five-year
+  period, 1990--2020, from \citet{abel2019bilateral}. Countries are assigned
+  to bands by the latitude of their centroid; the five bands sum to zero in
+  each period.}
+\label{fig:migration}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[width=0.9\textwidth]{no_activity_map_smooth_light.pdf}}
+\caption{Areas of zero recorded economic activity in 2015 (blue). Model
+  inversion assigns positive fundamental productivity to these cells.}
+\label{fig:activity_map}
+\end{figure}
+
+\subsection{Model: equilibrium conditions}
+\label{supp:model_equilibrium}
+
+Workers are freely mobile at a bilateral cost. A worker in $s$ who locates
+in $r$ obtains $u_t(r)\,m(sr)^{-1}\epsilon$, where $u_t(r)=a_t(r)\,y_t(r)$
+is spatial welfare, $y_t(r)$ real income per capita, $m(sr)$ a
+time-invariant and symmetric migration cost, and $\epsilon$ an i.i.d.
+Fr\'echet shock with dispersion $\Omega$; symmetry makes the location
+problem static \citep{desmet2018geography}. The share of population of
+$s$ that locates in $r$ is
+\begin{equation}
+\mu_t(sr)=\frac{\bigl[u_t(r)/m(sr)\bigr]^{1/\Omega}}
+              {\sum_{n}\bigl[u_t(n)/m(sn)\bigr]^{1/\Omega}},
+\label{eq:mu}
+\end{equation}
+and population evolves with exogenous births and deaths and these flows.
+Each cell produces a continuum of varieties under perfect competition with
+labour and structures, with a labour share $\alpha$ and productivity draws
+from a Fr\'echet distribution of scale $Z_t(r)^{\theta}$ and shape $\theta$; goods
+are traded at iceberg costs $\tau_{sr}$ with balanced trade. With $x_t(r)$
+the unit cost of the input bundle, the share of $r$'s expenditure on goods
+from $s$ and the price index are
+\begin{equation}
+\lambda_t(rs)=\frac{Z_t(s)^{\theta}\bigl(x_t(s)\tau_{sr}\bigr)^{-\theta}}
+                    {\sum_{l}Z_t(l)^{\theta}\bigl(x_t(l)\tau_{lr}\bigr)^{-\theta}},
+\qquad
+P_t(r)=\Gamma\Bigl[\sum_{s}Z_t(s)^{\theta}\bigl(x_t(s)\tau_{sr}\bigr)^{-\theta}\Bigr]^{-1/\theta}.
+\label{eq:trade}
+\end{equation}
+Rents on structures accrue to local residents, so that income per capita
+is $w_t(r)/\alpha$ and real income is $y_t(r)=w_t(r)/(\alpha P_t(r))$; the
+goods market clears when $w_t(r)L_t(r)=\sum_s\lambda_t(sr)\,w_t(s)L_t(s)$.
+
+The model is solved in relative changes, $\dot x_{t+1}=x_{t+1}/x_t$. Because
+migration costs and structures are time-invariant, the system
+\eqref{eq:mu}--\eqref{eq:trade} in changes involves only the observed
+shares of the previous period, the elasticities, and the changes in
+fundamentals implied by \eqref{eq:channels}:
+\begin{equation}
+\dot\mu_{t+1}(sr)=\frac{\dot u_{t+1}(r)^{1/\Omega}}
+   {\sum_{n}\mu_t(sn)\,\dot u_{t+1}(n)^{1/\Omega}},
+\qquad
+\dot P_{t+1}(r)=\Bigl[\sum_{s}\lambda_t(rs)\,\dot Z_{t+1}(s)^{\theta}\,
+   \dot x_{t+1}(s)^{-\theta}\Bigr]^{-1/\theta},
+\label{eq:hat}
+\end{equation}
+with $\dot Z_{t+1}(r)=\gamma_{t+1}(r)\exp[\mathcal{E}_{t+1}(r)f_z-\mathcal{E}_t(r)f_z]$
+for exogenous growth $\gamma$, and
+for fundamental amenities, $\dot a_{t+1}(r)=\dot L_{t+1}(r)^{-\lambda}\exp[\mathcal{E}_{t+1}(r)f_a-\mathcal{E}_t(r)f_a]$;
+the changes in trade shares, wages and utility follow from \eqref{eq:trade},
+market clearing and $\dot u=\dot a\,\dot y$. Each transition is solved as a
+fixed point on next-period population, with a nested fixed point on wages
+and trade shares.
+Unobserved fundamentals $\bar Z$ and $\bar a$ and costs $m$ and $\tau$ enter
+only through the observed initial shares $\lambda_0$ and $\mu_0$; they are
+never recovered by inversion. That choice closes the extensive margin of
+adaptation: a cell with no observed activity has no share to scale, and no
+counterfactual can route activity into it.
+
+
+
+
+
+
+%% ================================================================
+\section{The Productivity Dose-Response}
+\label{supp:productivity}
+%% ================================================================
+
+This section collects the evidence behind the productivity dose-response of
+the body: the sample and first stage, the identification argument and its
+tests, the robustness of the estimated function across specifications, and the
+contrast between the two exposure metrics across the same grid.
+
+%% ----------------------------------------------------------------
+\subsection{Sample and first stage}
+\label{supp:prod_sample}
+%% ----------------------------------------------------------------
+
+The estimation combines BACI--CEPII bilateral trade flows (1995--2019) with
+GLORIA input--output tables for domestic absorption, World Bank GDP per
+capita, and ERA5 temperatures \citep{hersbach2020era5} aggregated to countries
+with GHSL-POP population weights. Daily means are computed by the data provider over the UTC calendar day from hourly
+fields, so that for cells far from the Greenwich meridian the day boundary falls within
+local daytime. Three exclusions reduce the ISIC Rev.3
+nomenclature to $\EMPtradeNsectors$ manufacturing and agricultural sectors:
+primary and extractive industries (divisions 02, 05, 10--14), whose
+productivity is driven by endowments and whose domestic absorption is near
+zero, which destabilises the normalisation; services (divisions 40 and above),
+for which $X^k(rs)/X^k(rr)$ is not defined in the GLORIA final-demand matrix;
+and divisions 18, 30 and 33, recorded by BACI but absent from GLORIA. A
+fourth exclusion follows from the sectoral elasticities: division 99, goods
+not elsewhere classified, which the concordance populates almost entirely
+with waste, scrap and used goods, has no elasticity in
+\citet{caliendo2015estimates} and is dropped. Divisions 18, 30 and 33 carry
+$\EMPtradeGloriaLossObs\%$ of trade lines and $\EMPtradeGloriaLossVal\%$
+of trade by value, measured on the product-level BACI lines that remain once
+division 99 and non-country entities are removed, and
+$\EMPtradeGloriaLossPairs$ country pairs lose complete year coverage. Before the exclusions the sample has
+$\EMPtradeNobs$ observations; $\EMPtradeNoClimObs$ of them belong to pairs involving one of
+\EMPtradeNoClimCountries{} countries without an ERA5 record and are dropped, and the sample on
+which the dose-responses are estimated has $\EMPtradeNobsStageThree$. Bilateral trade costs are unobserved and proxied by the gravity vector
+$C_{rs}$: log distance, common official language, colonial link, and a WTO
+free-trade-agreement indicator. A spline's interior knots sit at equally spaced quantiles of the exposure
+distribution its arm uses (the day-weighted distribution of daily means
+under one metric, the distribution of annual means under the other) and its
+boundary knots at the winsorisation thresholds. Monte Carlo draws are
+$\boldsymbol\beta^{(b)}\sim\mathcal N(\hat{\boldsymbol\beta},\hat\Sigma)$; the joint and non-linearity tests across this grid
+are in Supplement~\ref{supp:prod_robustness}.
+
+
+%% ----------------------------------------------------------------
+\subsection{Identification}
+\label{supp:prod_identification}
+%% ----------------------------------------------------------------
+
+\paragraph{Between-pair variation.}
+Table~\ref{tab:fe_absorption} quantifies the statement of the body that
+bilateral temperature differentials are quasi-permanent:
+origin$\times$destination$\times$product effects absorb
+$\EMPfeAbsorptionMin$--$\EMPfeAbsorptionMax\%$ of the variance of the climate
+terms $\Delta_k$, and the within-pair standard deviation of $\Delta_k$ is at
+most $\EMPwithinPairSDMax\%$ of its total. Product$\times$year effects absorb
+at most $\EMPprodYearAbsorpMax\%$. Table~\ref{tab:ctrl_absorption} shows what
+the gravity controls do against the remaining between-pair variation: they
+absorb $\EMPctrlAbsorpLo$--$\EMPctrlAbsorpHi\%$ of it, conditional on
+product$\times$year effects, without being collinear with the climate term.
+
+\input{output/tab_fe_absorption.tex}
+\input{output/tab_ctrl_absorption.tex}
+
+\paragraph{Selection on unobservables.}
+Table~\ref{tab:oster_delta} reports the \citet{oster2019unobservable}
+selection ratio $\delta^*$ across the specification grid, with the first-basis
+coefficient without and with gravity controls. Because $\delta^*$ scales with
+the inverse of the coefficient's movement, specifications whose coefficient
+barely moves produce arbitrarily large values of uninformative sign; the
+informative entry is the least favourable entry on the grid,
+$\delta^*=\EMPosterDelta$,
+whose coefficient moves by $\EMPosterMoveRel\%$ when the controls are added.
+Unobservables would have to be $\EMPosterDelta$ times as important as the
+gravity controls to explain the estimated effect away.
+
+\input{output/tab_oster_delta.tex}
+
+\paragraph{The exporter-side cost term.}
+\citet{astier2026quantifying} observe that in gravity-based estimation of
+local-shock elasticities the exporter-side cost term need not be orthogonal
+to the shock differential: wages and input prices are determined jointly with
+productivity and climate, so the residual is correlated with the regressors.
+The normalisation by domestic absorption cancels the importer's inward
+resistance and expenditure exactly, both indexed on $r$ alone, but leaves the
+exporter capability term in place. Writing
+$Z^k_t(s)=\bar Z^k_t(s)\,e^{\zeta_z^{\top}b(T_t(s))}$, with $b(\cdot)$ the
+basis of the dose-response, and collecting the non-climate exporter terms into
+$\xi^k_t(s)\equiv\ln\bar Z^k_t(s)-\ln x^k_t(s)$,
+\[
+\ln\frac{X^k_t(rs)}{X^k_t(rr)}
+=\theta\,\zeta_z^{\top}\underbrace{\bigl[b(T_t(s))-b(T_t(r))\bigr]}_{\Delta b_{rs}}
++\theta\bigl[\xi^k_t(s)-\xi^k_t(r)\bigr]-\theta\,\Delta\ln\tau_{rs}.
+\]
+The gravity controls target $\Delta\ln\tau_{rs}$, the income ratio targets the
+wage component of $\xi$, and $\rho^k_t$ absorbs the product$\times$year
+intercept; there is no exporter or importer effect, since one would absorb
+$\EMPfeAbsorptionMax\%$ of the differential, so the non-climate fundamental
+differential stays in the residual. With tildes denoting the parts orthogonal
+to the controls: under the specification of eq.~\eqref{eq:trade_estimation},
+\[
+\widehat\zeta_z\xrightarrow{p}\zeta_z
++\bigl[\mathbb V(\widetilde{\Delta b}_{rs})\bigr]^{-1}
+\mathbb C\bigl(\widetilde{\Delta b}_{rs},\tilde\xi_s-\tilde\xi_r\bigr),
+\]
+and by the additive exporter$(+)$/importer$(-)$ structure the bias vanishes if
+and only if $\operatorname{cov}\bigl(\tilde b(T(s)),\tilde\xi(s)\bigr)=0$:
+climate exposure is uncorrelated with non-climate fundamental productivity,
+conditional on the controls and product$\times$year effects.
+
+Three remarks follow. (i) Hot countries plausibly have low $\bar Z$ for non-climate
+reasons, so the covariance is negative in the hot bins and damages there are
+overstated; this is the channel the Oster bound targets, but Oster's argument
+assumes unobservables resemble the observed controls and does not by itself
+cover a fundamental orthogonal to the gravity set. (ii) No unit effect
+rescues it: within-country climate barely moves, so $b(T(s))$ is
+quasi-collinear with an exporter$\times$year effect, and purging $\bar Z(s)$
+purges $f_z$ with it. Robustness therefore means bounding the bias, not
+eliminating it. (iii) The income term: $y = w/P$ is a descendant of the treatment, so
+dropping it induces omitted-cost bias and including it opens a collider
+path; I report both. It enters as a control rather than as a structural term,
+weighted by the sectoral trade elasticity $\theta^k$ of
+\citet{caliendo2015estimates} so that it follows sectoral variation in the
+cost channel, with its own coefficient estimated rather than restricted. The
+weighting is a property of the control, not of the model of
+Section~\ref{sec:model}, which carries a single elasticity; the free
+coefficient absorbs the gap between $y$ and the input bundle cost it proxies,
+so that this gap does not load on $f_z$.
+
+\paragraph{Empirical bounds.}
+I bound the bias with estimation-side re-runs only; \citet{astier2026quantifying} address
+it by instrumenting, and nothing here substitutes for a valid instrument.
+Table~\ref{tab:oh_bounds} re-estimates $f_z$ under exporter$\times$year and
+importer$\times$year effects, which absorb the exporter (respectively importer) capability
+term in full, and with and without the income term. Of the $\EMPohSchemesN$ schemes,
+$\EMPohSchemesLost$ return no band excluding zero on the hot-side slope
+($20\to30^\circ$C) and $\EMPohSchemesId$ does, the exporter$\times$year scheme:
+$\EMPohSurvivingShare\%$ of the identifying differential survives the demeaning, the slope
+is $\EMPohSlopeExporter$ per $^\circ$C, and the 95th percentile of its band is
+$\EMPohSeedOneQnfiveExporter$. Under importer$\times$year effects the differential
+collapses (joint $F<1$) and the scheme bounds nothing. The baseline and the scheme without
+the income term keep the sign of the slope but their bands reach zero, with 95th
+percentiles of $\EMPohSeedOneQnfiveBaseline$ and $\EMPohSeedOneQnfiveNoy$. Bands rest on
+$\EMPohMCdraws$ draws. A second, independent seed returns the same verdict for
+$\EMPohSeedAgreeN$ of the $\EMPohSchemesN$ schemes and moves the 95th percentiles to
+$\EMPohSeedTwoQnfiveExporter$, $\EMPohSeedTwoQnfiveBaseline$ and
+$\EMPohSeedTwoQnfiveNoy$; the largest such move across the four schemes is $\EMPohSeedMoveMax$, within which the
+baseline's percentile lies and the other's does not, so the baseline band is classified
+neither way. The sign of the response, and of the contrast it feeds, does not rest on the
+exogeneity condition; what the schemes leave open is precision.
+
+
+
+\input{output/tab_oh_bounds.tex}
+
+\paragraph{A synchronous shock.} Consider a uniform
+shock $\delta$ to both partners' exposure:
+\begin{equation}
+\frac{\partial}{\partial\delta}\bigl[\mathcal{E}_t(s)f_z-\mathcal{E}_t(r)f_z\bigr]
+=\mathcal{E}_t(s)f_z'-\mathcal{E}_t(r)f_z',
+\label{eq:global_shock}
+\end{equation}
+which vanishes identically if $f_z$ is linear and otherwise equals the
+difference in marginal damages between partners: a synchronous shock shifts
+comparative advantage towards the partner on the flatter part of the
+response, and that curvature is what the bin specification recovers from
+cross-sectional variation in exposure. The same non-linearity is what makes
+the annual mean an insufficient statistic, so the identification strategy
+and the result rest on one fact.
+
+\subsection{Binning bias}
+\label{supp:binning}
+
+\citet{jones2026binning} show that, under general warming, the number of days a location
+spends in each temperature bin trends at a rate that depends on its baseline temperature: a
+hot location gains hot days faster and loses cold days more slowly than a cold one, so that
+both tails trend upward in hot places relative to cold ones. In a panel with location fixed
+effects, identification then rests partly on those trends, and if the outcome also trends
+with baseline climate the estimated tails are biased, typically towards a U. The same
+mechanism applies to polynomials of daily temperature summed over the year. Their remedies
+are counterfactual expected bin counts as controls, or fixed effects interacted with short
+calendar windows.
+
+The ingredients are present in this sample. Over 1995--2019 the population-weighted warming
+trend is faster in cold countries, the trend of each bin count correlates positively with
+baseline temperature in both tails and not in the centre, and
+$\EMPbinWithinPairMin$--$\EMPbinWithinPairMax$\% of the variance of the reference regressors
+$\Delta_k$ is within-pair variation over time; the within-pair trend of the dependent
+variable correlates with the baseline temperature differential at $\EMPbinTrendCorY$. The
+design of Section~\ref{sec:identification} is cross-sectional: product$\times$year effects
+and the gravity controls, no pair effect, so that the bilateral differentials are identified
+between pairs.
+
+Table~\ref{tab:binning} re-estimates the two reference specifications under four
+structures. The first is the published one. The second replaces each pair's differentials by
+their 1995--2019 means, which removes every within-pair movement, the channel of the bias,
+without changing the fixed effects: the cold arm of the daily response moves by
+$\EMPbinShiftColdBetween$ of its standard error and the Northern contrast by
+$\EMPbinShiftDbetween$, from $\EMPbinDbase$ to $\EMPbinDbetween$. The third adds
+pair$\times$product effects, the panel design of \citet{jones2026binning}: the daily cold arm
+becomes positive and significant, $\EMPbinColdPp$ $[\EMPbinColdPpLo,\EMPbinColdPpHi]$ against $\EMPbinColdBase$
+$[\EMPbinColdBaseLo,\EMPbinColdBaseHi]$ in the published design, the projected Northern change turns negative under both arms ($\EMPbinNorthPpDaily$
+and $\EMPbinNorthPpAnnual$), and the contrast reverses to $\EMPbinDpp$
+$[\EMPbinDppLo,\EMPbinDppHi]$. The fourth interacts those effects with five-year windows,
+their short-panel remedy: the cold arm falls to $\EMPbinColdPpFive$
+$[\EMPbinColdPpFiveLo,\EMPbinColdPpFiveHi]$ and the contrast to $\EMPbinDppFive$
+$[\EMPbinDppFiveLo,\EMPbinDppFiveHi]$, which includes zero. The signature they describe (a
+cold-side effect that appears under long-panel effects and recedes when the window shortens) is thus visible in these data, and the published estimate does not rest on it.
+
+\input{output/tab_binning.tex}
+
+%% ----------------------------------------------------------------
+\subsection{Robustness across specifications}
+\label{supp:prod_robustness}
+%% ----------------------------------------------------------------
+
+\input{output/tab_robustness_prod_joint.tex}
+
+Table~\ref{tab:robustness_prod_joint} reports the joint and non-linearity
+tests across the grid under both metrics. The temperature terms are jointly
+significant throughout ($p\le\EMPprodPjointMax$); linearity is rejected in
+$\EMPprodNnonlinRejFivePct$ of the $\EMPgridNcells$ specification--metric cells
+at $5\%$ and in $\EMPprodNnonlinRejOnePct$ at $1\%$; the exceptions at $5\%$
+are \EMPprodNnonlinExceptions{} ($p$ between $\EMPprodPnonlinExcLo$ and
+$\EMPprodPnonlinExcHi$).
+The Akaike criterion is uninformative: one specification takes weight one to
+machine precision under either metric, which at this sample size is what the
+exponential does whatever the fit, and the criterion is a quasi-likelihood
+criterion under PPML. 
+%% ----------------------------------------------------------------
+\subsection{The contrast across the grid}
+\label{supp:prod_contrast}
+%% ----------------------------------------------------------------
+
+Table~\ref{tab:contrast_grid} is the grid behind Figure~\ref{fig:contrast} of
+the body. For each of the $\EMPgridProdNspec$ specifications (polynomials of
+degree two to four, natural splines with three or four degrees of freedom,
+three symmetric winsorisation thresholds, a spline's interior knots at equally
+spaced quantiles of the arm's own exposure distribution and its boundary knots
+at the winsorisation thresholds) it reports the projected change in
+the Northern log productivity fundamental above $45^\circ$N between 2015 and
+\GEhorizonLabel\  under each metric, their difference with its interval, and, in the last
+two columns, the estimated $f_z$ at $25$ and $30^\circ$C relative to the
+specification's own maximum. The two arms share sample, dependent variable,
+fixed effects and controls. No specification is selected, ranked or weighted.
+
+Section~\ref{sec:contrast} reads the three counts off this table. What the
+body has no room for is the last two columns: the estimated response itself at
+two reference temperatures, each relative to its own specification's maximum,
+which run from $\EMPspecInvarMin$ to $\EMPspecInvarMax$ log points at
+$30^\circ$C.
+
+The count of signed differences is stronger than a comparison of intervals would be, because
+the arms are not independent. Estimated on the same cells, their coefficient
+vectors are correlated ($\rho$ between $\EMPdiffRhoLo$ and $\EMPdiffRhoHi$
+across the grid), and the variance of the difference carries that covariance:
+the standard error of the difference is $\EMPdiffSEshareLo$--$\EMPdiffSEshareHi\%$
+of the one obtained by treating the arms as independent. The independence
+calculation is therefore conservative, and under it the difference still
+excludes zero in $\EMPdiffExclNaive$ of $\EMPgridProdNspec$ specifications, the
+exceptions being \EMPdiffExclNaiveExceptions. The two counts are reported
+separately because they are different counts. The last two columns of
+Table~\ref{tab:contrast_grid} show that what varies across the grid is not the
+sign of the hot tail, which is negative in all $\EMPspecInvarNneg$ rows, but its
+magnitude, from $\EMPspecInvarMin$ to $\EMPspecInvarMax$ log points at
+$30^\circ$C -- a \EMPspecInvarFold-fold spread in which the flattest retains
+$\EMPspecInvarShare\%$ of the steepest, and the location of the cold-side plateau.
+
+
+\input{output/tab_contrast_grid.tex}
+
+
+%% ================================================================
+\section{The Amenity Dose-Response}
+\label{supp:amenity}
+%% ================================================================
+
+This section establishes the claim of the body that bilateral migration data
+do not identify the amenity dose-response $f_a$, and sets out the bounds under
+which the counterfactual is run.
+
+%% ----------------------------------------------------------------
+\subsection{Sample and first stage}
+%% ----------------------------------------------------------------
+
+At equilibrium the ratio of households
+moving from $r$ to $s$ to those staying in $r$ satisfies
+\begin{equation}
+\log\frac{\mu_t(r,s)}{\mu_t(r,r)}
+= -\frac{\lambda}{\Omega}\bigl[\log L_t(s)-\log L_t(r)\bigr]
+ +\frac{1}{\Omega}\bigl[\log y_t(s)-\log y_t(r)\bigr]
+ +\frac{1}{\Omega}\bigl[\mathcal{E}_t(s)f_a-\mathcal{E}_t(r)f_a\bigr]
+ +\psi_{rs}+\phi_t+\varepsilon_{rst},
+\label{eq:amenities_estimation}
+\end{equation}
+where the pair effect $\psi_{rs}$ absorbs fundamental amenities and migration
+costs, and $\lambda=0.32$, $\Omega=0.5$ follow \citet{desmet2018geography}.
+Migration costs are unobserved and proxied by the same gravity vector as
+trade. In the first stage on the
+$\EMPmigNobs$ five-year bilateral flows of \citet{abel2019bilateral},
+1990--2015, with World Bank population and GDP per capita and ERA5
+temperatures, the controls are jointly informative (Wald $F=\EMPmigWaldF$,
+$p=\EMPmigWaldP$). The regression is estimated by PPML with origin$\times$destination and
+year effects, on $\EMPmdeNeff$ origin--destination pairs.
+
+
+%% ----------------------------------------------------------------
+\subsection{Level, shape, and the limits of the data}
+\label{supp:amenity_identification}
+%% ----------------------------------------------------------------
+
+Write the climate term of eq.~\eqref{eq:amenities_estimation} for pair
+$(r,s)$ at date $t$ as
+$\Delta f_{rs,t}\equiv\mathcal{E}_t(s)f_a-\mathcal{E}_t(r)f_a
+=\overline{\Delta f}_{rs}+(\Delta f_{rs,t}-\overline{\Delta f}_{rs})$.
+The pair effect $\psi_{rs}$ absorbs $\overline{\Delta f}_{rs}$ exactly, so no
+within-pair estimator recovers the level of $f_a$. A normalisation is
+required; I adopt $f_a(15^\circ\text{C})=0$, which fixes the level without
+restricting the shape. What remains is the within-pair change in bilateral temperature differentials
+over five-year windows, whose standard deviation in the estimation sample is
+$\sigma_{\Delta T}\approx\EMPsigmaDeltaT^\circ$C. In the linearised problem
+the coefficient of eq.~\eqref{eq:amenities_estimation} is $f_a'/\Omega$, with
+standard error $\sigma_\varepsilon/(\sigma_{\Delta T}\sqrt{N_{\rm eff}})$,
+where $\sigma_\varepsilon$ is the residual dispersion and $N_{\rm eff}$ the
+number of pair clusters. The smallest slope detectable at the $5\%$ level with
+$80\%$ power is
+\begin{equation}
+|f_a'|_{\min}=(z_{0.975}+z_{0.80})\,\Omega\,
+\frac{\sigma_\varepsilon}{\sigma_{\Delta T}\sqrt{N_{\rm eff}}}
+=2.80\,\Omega\,\frac{\sigma_\varepsilon}{\EMPsigmaDeltaT\sqrt{N_{\rm eff}}}.
+\label{eq:mde_amenity}
+\end{equation}
+$N_{\rm eff}$ is the number of origin--destination pairs; the inference clusters
+by origin and by destination, which leaves fewer independent units, so the
+minimum detectable effect reported here is a lower bound on the one implied by
+the error structure actually used.
+At $\sigma_\varepsilon=\EMPmdeSigmaEps$ (log-scale PPML residuals over
+positive flows, highest-weight specification) and $N_{\rm eff}=\EMPmdeNeff$,
+this gives $|f_a'|_{\min}=\EMPmdeGprimeMin$ log points per $^\circ$C. The
+scale restriction below places any admissible $f_a$ at or below $\hat f_z$,
+whose average slope between the optimum plateau and $30^\circ$C is
+$\EMPmdeSlopeMax$ log points per $^\circ$C. The test could detect an amenity
+slope only if it exceeded the admissible productivity response by a factor of
+$\EMPmdeRatio$. Read directly off the estimates, the $95\%$ interval on the
+amenity slope spans $\pm\EMPmdeCI$ log points per $^\circ$C: it contains zero
+and the entire admissible response. The data do not reject a large amenity
+response; they cannot distinguish it from none.
+
+\paragraph{Placebo.}
+The identifying assumption is that within-pair changes in temperature
+differentials are uncorrelated with contemporaneous shocks to flows. Table~\ref{tab:exogeneity_mrt_migration}
+substitutes one-period-ahead differentials for contemporaneous ones; the
+smallest $p$-value on the leads is $\EMPplaceboPmin$, so the condition is not
+rejected. This is necessary for the null to be informative, not sufficient: a
+test with no power passes a placebo whether or not the true effect is zero.
+
+\input{output/tab_exogeneity_mrt_migration.tex}
+
+
+%% ----------------------------------------------------------------
+\subsection{Robustness across specifications}
+%% ----------------------------------------------------------------
+
+Tables~\ref{tab:robustness_amenity} and~\ref{tab:robustness_amenity_annual}
+report the grid under the daily distribution and the annual mean. The
+smallest joint $p$-value is $\EMPamenPjointLo$ under the daily distribution
+and $\EMPamenAnnualPjointLo$ under the annual mean; the joint test rejects in
+none of the $\EMPamenGridNcells$ cells. The smallest $p$-value on the
+degree-$\ge2$ terms alone is $\EMPamenPnonlinMin$, in five daily cells; it is a
+minimum over $\EMPamenGridNcells$ cells of a test with one fewer restriction,
+and a value near
+the threshold is what one expects under the null. 
+
+\input{output/tab_robustness_amenity_formatted.tex}
+\input{output/tab_robustness_amenity_annual_formatted.tex}
+
+
+\par Figure~\ref{fig:drf_amenity}
+draws the two arms on common axes: the medians are close to flat and the
+Q05--Q95 envelopes span zero to large negative values under both metrics,
+which is what the identification argument predicts, since changing the metric
+does not create variation where the pair effects have absorbed it.
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{MC_amenity_daily_fan_paper.pdf}\\[-2pt]
+  {\small (a) Daily temperature distribution}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{MC_amenity_annual_fan_paper.pdf}\\[-2pt]
+  {\small (b) Annual mean temperature}
+\end{minipage}
+\caption{Amenity dose-response under the two exposure metrics. Monte Carlo
+  ($\EMPnMC$ draws; specification sampled by Akaike weight, which is not
+  degenerate here, then coefficients from $\mathcal N(\hat\beta,\hat V)$), each
+  draw normalised to zero at $0^\circ$C; median, Q25--Q75 and Q05--Q95. Bars:
+  the arm's own exposure. Axes cut at the common support.}
+\label{fig:drf_amenity}
+\end{figure}
+%% ================================================================
+\section{General-Equilibrium Details}
+\label{supp:ge}
+%% ================================================================
+
+This section reports the GE results that
+Section~\ref{sec:ge} summarises: the path between 2015 and \GEhorizonLabel, the
+distribution across income groups, the full country and latitude tables, the
+sensitivity to the amenity channel, the Monte Carlo band on the contrast, and
+the decompositions behind Sections~\ref{sec:ge_gap} and~\ref{sec:ge_north}.
+Unless stated otherwise, every run uses the amenity lower bound $f_a=0$. 
+
+\subsection{Path and dispersion}
+\label{supp:ge_path}
+
+Table~\ref{tab:ge_aggregate} reports the three margins at 2030, 2050 and
+\GEhorizonLabel. The annual total reaches $\GEaggAnnualThirty$ by 2030 and
+$\GEworldAnnual$ by \GEhorizonLabel; the daily extra is negative at each of the three
+horizons and grows in absolute value along the path, so that the daily
+distribution adds losses rather than redistributing them. The share of the
+world population living in cells with cumulative losses by \GEhorizonLabel\  is
+$\GEpopLossDaily\%$ under the daily total, $\GEpopLossAnnual\%$ under the
+annual total and $\GEpopLossExtra\%$ under the daily extra. The daily
+distribution therefore adds losses for a majority of the world population but
+not for all of it; in the remaining cells the intra-annual distribution
+shifts in a way that partially offsets annual-mean damages. Its decisive
+effect is at the sign margin: the share of the population in cells that gain
+falls from $\GEpopGainAnnual\%$ to $\GEpopGainDaily\%$.
+
+
+\input{output/tab_ge_aggregate.tex}
+
+\subsection{Cold economies and latitude}
+\label{supp:ge_north}
+Table~\ref{tab:ge_latitude} reports the Northern aggregate at each threshold of the latitude grid. The contrast grows with latitude rather than sorting economies into categories: the colder the economy, the larger the annual-mean gain and the deeper the daily extra that removes it. 
+\input{output/tab_ge_latitude.tex}
+
+\subsection{The amenity channel}
+\label{supp:ge_amenity}
+
+Tables~\ref{tab:ge_sensitivity} and~\ref{tab:ge_north_sens} re-run both
+scenarios at the interior estimate $\hat f_a^{\,q50}$, the within-pair median
+across specifications of the amenity dose-response that
+Supplement~\ref{supp:amenity} shows to be unidentified. The world daily total
+moves from $\GEworldDaily$ at the lower bound to $\GEworldDailyQfifty$, and
+the annual total from $\GEworldAnnual$ to $\GEworldAnnualQfifty$, because the
+interior estimate adds a congestion-adjusted amenity penalty across the
+heterogeneous tropical population. For the Northern contrast the sign holds and
+the magnitude does not: the daily extra above $45^\circ$N is
+$\GEnorthExtraLB$ at the lower bound and $\GEnorthExtraQfifty$ at the
+interior estimate, negative for every Northern economy under both and
+\GEsensExtraRatio{} times deeper at the estimate; the Northern daily total runs
+from $\GEnorthNetLB$ to $\GEnorthNetQfifty$ on the same comparison. At the interior estimate the annual arm itself projects $\GEnorthAnnualQfifty$ for the
+aggregate: the annual amenity response carries no non-linearity the data support — the
+test of its degree-two and higher terms has $p$ between \EMPamenAnnualPnonlinLo{} and
+\EMPamenAnnualPnonlinHi{} across the grid, and the joint test of all its climate terms $p$
+between \EMPamenAnnualPjointLo{} and \EMPamenAnnualPjointHi{} — so the position of its optimum, which decides
+whether cold economies gain, is not identified, and the contrast does not rest on the
+annual arm projecting a gain. Because
+$\hat f_a$ lies \EMPamenScaleExcess{} times beyond the admissible bound and
+below the threshold that Supplement~\ref{supp:amenity_identification} shows the
+design could detect, this arm is a stress test past the restriction the paper
+imposes on itself, not a point inside it.
+
+\input{output/tab_ge_sensitivity.tex}
+\input{output/tab_ge_north_sens.tex}
+
+\subsection{Band on ranked draws}
+\label{supp:ge_band_ranked}
+Table~\ref{tab:ge_band_ranked} solves the model at draws of the daily
+dose-response. Three hundred coefficient vectors are drawn from the sandwich
+covariance of the daily arm's estimate. The draws solved are a stratified sample at evenly spaced
+percentiles of the projected Northern change in partial equilibrium, computed
+for each draw by the function behind Figure~\ref{fig:contrast};
+$\GEarmBnDraws$ of them are solved in general equilibrium. The
+partial-equilibrium ordering carries over imperfectly (the Spearman
+correlation between the partial-equilibrium ordering of the draws and the
+ordering of their Northern daily totals in general equilibrium is
+\GEarmBrankCorr) so the percentiles and shares reported are those of the
+general-equilibrium outcomes.
+The body reports the share of population in gaining cells for the central
+run, $\GEpopGainDaily\%$. Across the draws the share has a median of
+\GEpopGainDailyMed\% and reaches \GEpopGainDailyHi\% in the upper tail, above
+the annual-mean central value.
+\input{output/tab_ge_band_ranked.tex}
+
+\subsection{Warming switched off by region}
+\label{supp:exposure_masks}
+Section~\ref{sec:ge_north} compares the headline runs with runs in which
+warming is switched off in part of the world. Under the first mask, the
+$\GEmaskNorthCells$ cells at or above $45^\circ$N keep their projected exposure
+and the other $\GEmaskNonNorthCells$ cells keep their 2015 exposure in every
+period; the second mask does the reverse. The model computes damage from the
+change in exposure between periods, so a cell held at its 2015 exposure
+receives no damage, as in the scenario without warming. Nothing else is
+switched off: goods trade, migration, wages and congestion operate in every
+cell, and each run is a full general-equilibrium solution under a partial
+warming. Each mask is solved under the daily and the annual-mean function, at
+the central draw of the dose-response and at the amenity lower bound $f_a=0$;
+the run without warming is the headline one. These runs carry no Monte Carlo
+band. The model is not linear, so the full-warming value need not equal the
+sum of the two masked values; Section~\ref{sec:ge_north} reports the
+difference, the interaction, with the shares.
+\subsection{The two decompositions}
+\label{supp:ge_decomp}
+The two tables below carry quantities that the body reports and that no other
+table does. The first is a difference between runs already described above.
+The second reports the income component by latitude band and, above
+$45^\circ$N, its share with warming confined to the North, from the masked runs
+of Supplement~\ref{supp:exposure_masks}.
+
+\begin{table}[H]\centering\small
+\caption{Evaluation and function terms of the Northern daily extra
+(Section~\ref{sec:ge_gap}). The third scenario applies the daily response to
+annual-mean exposure, so the evaluation term is the part of the extra that the
+change of exposure alone produces and the function term the remainder.}
+\label{tab:ge_decomp_gap}
+\begin{tabular}{lc}
+\toprule
+ & Cumulative $\Delta\log U$ \\
+\midrule
+Northern daily extra            & $\GEnorthDailyExtra$ \\
+\quad evaluation term           & $\GEnorthChanEval$ \\
+\quad function term             & $\GEnorthChanShape$ \\
+\midrule
+Ratio, function to evaluation   & $\GEnorthChanRatio$ \\
+\bottomrule
+\multicolumn{2}{p{\dimexpr0.8\linewidth\relax}}{\footnotesize
+\textit{Note.} The two terms are \GEnorthChanSameSign{} one another. In
+partial equilibrium the same split attributes $\EMPgapShareOfContrast\%$ of the
+Northern contrast to the shape of the response, of which
+$\EMPgapShareBelowZero\%$ lies below $0^\circ$C and $\EMPgapShareAboveTwenty\%$
+above $20^\circ$C.}
+\end{tabular}
+\end{table}
+
+\begin{table}[H]\centering\small
+\caption{The income component of the daily extra by latitude band
+(Section~\ref{sec:ge_north}), at the central draw of the dose-response. Each
+entry is the income component for the cells of the band; the last column is
+its value with warming confined to cells at or above $45^\circ$N, as a share of
+its value when the whole world warms.}
+\label{tab:ge_decomp_lat}
+\begin{tabular}{lcc}
+\toprule
+Latitude band & Income component & Northern warming only (\%) \\
+\midrule
+Below $30^\circ$N          & $\GEchanIncomeTrop$ & --- \\
+$30$--$45^\circ$N          & $\GEchanIncomeMid$  & --- \\
+$45$--$60^\circ$N          & $\GEchanIncomeSub$  & $\GEmaskNorthWarmingIncomeSubShare$ \\
+Above $60^\circ$N          & $\GEchanIncomeArc$  & $\GEmaskNorthWarmingIncomeArcShare$ \\
+\bottomrule
+\multicolumn{3}{p{\dimexpr0.8\linewidth\relax}}{\footnotesize
+\textit{Note.} The share is not reported below $45^\circ$N, where the cells do
+not warm under that mask.}
+\end{tabular}
+\end{table}
+
+\section{The Cruz--Rossi-Hansberg Pipeline}
+\label{supp:crh}
+%% ================================================================
+
+The bilateral estimator identifies the productivity dose-response from a cross-section of
+trade flows between countries, and its vulnerability is the confounding specific to that
+cross-section. This section re-runs the contrast in a design that shares neither its data,
+nor its unit, nor its fundamental: the estimation of \citet{cruz2024economic} on
+model-inverted cell fundamentals, under their fixed effects --- sub-region$\times$period for
+productivity, blocks of $2\times2$ cells and sub-country$\times$period for amenities ---
+with a single lever moved, the exposure metric. The design has no cell fixed effect:
+identification is across cells within a sub-region and period, with
+\EMPcrhWithinCellProd\% of the identifying variance of the productivity regressors and
+\EMPcrhWithinCellAmen\% of the amenity regressors lying within cells across periods
+(\EMPcrhWithinCellTmeanProd\% and \EMPcrhWithinCellTmeanAmen\% for the mean temperature).
+
+I invert the \citet{cruz2024economic} model to recover productivities
+$\bar a_t(r)$ and amenities $\bar b_t(r)$ on their $1^\circ$ grid
+($\EMPcrhGridCells$ cells, four decadal cross-sections 1990--2005,
+$\EMPcrhCellPeriods$ cell-periods), following \citet{desmet2018geography};
+I use my own inversion rather than the deposited fundamentals so that
+inversion, estimation and projection are internal to one reproduction.
+Re-estimating the authors' own specification (a ten-year mean of the
+coldest-month temperature) on my inversion reproduces their bliss points
+($\EMPcrhOptProd^\circ$C against $1.6^\circ$C for productivity,
+$\EMPcrhOptAmen^\circ$C against $8.6^\circ$C for amenities).
+The daily arm follows \citet{schlenker2009nonlinear}: the fundamental
+is regressed on the shares of days in each temperature bin,
+$\sum_k\hat\delta_k s_k(r)$, under the authors' fixed effects and geographic
+controls, and the $\hat\delta_k$ are re-estimated, not plugged in from the
+annual function. The two metrics agree in their first moment: the cell mean
+of the ERA5 daily distribution reproduces the authors' own decadal average
+temperature with correlation $\EMPcrhMetricCor$, slope $\EMPcrhMetricSlope$
+and bias $\EMPcrhMetricBias^\circ$. The authors cluster spatially (Conley, 550~km). Every interval reported here
+clusters at the country level. The projection is linear in the estimated coefficients, so
+the interval on the difference between arms carries their covariance
+(correlation \EMPcrhCorArmsLo\ to \EMPcrhCorArmsHi) rather than treating them
+as independent.
+
+Figure~\ref{fig:crh_response} plots the re-estimated damage functions.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{fig_crh_responses.pdf}
+\caption{Productivity (top) and amenities (bottom), under the
+  daily-distribution metric (left) and the annual-mean metric (right).
+  Left: the effect on the change in the log fundamental of shifting one unit
+  of day-share into temperature $T$, relative to the reference bin at
+  \EMPcrhDailyRefBin{}$^\circ$C;
+  points are bin coefficients, the line a weighted natural-spline fit. Right: the effect on the same object of a
+  one-degree rise in the annual mean. Columns
+  differ and their vertical scales are not comparable.}
+\label{fig:crh_response}
+\end{figure}
+
+
+In the day-response
+$\hat\delta(T)$, an additional day is most valuable near
+$\EMPcrhPeakProd^\circ$C for productivity and $\EMPcrhPeakAmen^\circ$C for
+amenities, and its value declines above $20$--$25^\circ$C. As a cold
+cell warms, its distribution grows an upper tail into that declining region,
+which an evaluation at the mean cannot register. Across baseline temperatures the daily projection lies below the annual-mean one, and in the temperate band the two disagree in sign at the cell level. The upper tail is data-poor in the estimation sample,
+the mirror image of the cold-branch caveat of Supplement~\ref{supp:productivity};
+I hold $\hat\delta(T)$ flat beyond $\EMPcrhSupportHi^\circ$C, the hottest bin
+with at least $1\%$ of cell-periods, and $\EMPcrhNorthDayMassAboveSupport\%$ of the cold
+economies' projected day-mass lies beyond it: clamping moves the Northern
+aggregate by $\EMPcrhClampMove$. Holding $\hat\delta(T)$ flat beyond $30^\circ$C instead moves the Northern
+difference by $\EMPcrhClampThirtyMove$, and
+\EMPcrhNorthDayMassAboveThirty\% of the day-mass of cells above $45^\circ$N
+lies above $30^\circ$C by \GEhorizonLabel{}: the upturn of the fitted
+response between $30$ and $40^\circ$C, which rests on a few bins with little
+mass, plays no part in the Northern result.
+
+The shape of the annual-mean response in Figure~\ref{fig:crh_response}
+differs from the authors' published one, and the difference is a property of the fitting, not of the data. The
+authors fit to their twenty bin slopes a logistic function whose slope
+parameter is fixed, so that the estimated response is a smooth step by
+construction: flat at the cold end, flat at the hot end, and a single
+transition whose centre is the bliss point. The annual arm here smooths the
+same kind of bin slopes with a natural spline, which imposes no shape, and
+what it shows is that the marginal effect of warming is largest at annual
+means between $0$ and $10^\circ$C and weakens towards the coldest cells,
+below $-10^\circ$C, where few cells lie and the slope is poorly estimated
+under either specification. The two responses also sit on different
+supports: in the authors' winter-month metric the Siberian cells lie
+between $-40$ and $-20^\circ$C, on the flat upper plateau of the logistic,
+whereas in the annual mean the same cells lie between $-15$ and
+$0^\circ$C, where the spline turns down. What the two fits agree on is
+what the projection uses: the marginal effect is positive throughout the
+North and negative in the tropics, and its zero crossing (at
+\EMPcrhMeanOpt{}$^\circ$C in annual-mean terms, \EMPcrhOptProd{}$^\circ$C
+in the authors' winter-month terms) separates the same cells. I keep the spline rather than adopt the authors' logistic for the annual
+arm. Imposing their functional form would reproduce the appearance of
+their figure, but it would do so by ruling out what the bin slopes show:
+that the marginal effect of warming weakens in the coldest cells. The
+spline reports that feature and the logistic cannot; where the two agree,
+on the sign and the crossing, the choice is immaterial, and where they
+differ, the spline follows the data.
+
+Table~\ref{tab:crh_north} reports the projected change in the log fundamental
+between 2015 and \GEhorizonLabel\  under SSP2-4.5 for the five largest cold economies and
+the aggregate above $45^\circ$N. The projection runs to \GEhorizonLabel\  rather
+than the authors' 2200, uses SSP2-4.5 rather than RCP~8.5, and is a
+partial-equilibrium projection of the fundamental without their endogenous
+innovation.
+
+\begin{table}[!ht]
+\centering\small
+\caption{Projected change in the log fundamental, \GEhorizonSpan (SSP2-4.5), in
+  the Cruz--Rossi-Hansberg pipeline: annual-mean versus daily-distribution
+  metric and their difference. Partial-equilibrium projection, four-period
+  sample, 95\% intervals clustered by country.}
+\label{tab:crh_north}
+\input{output/tab_crh_northern.tex}
+\end{table}
+
+
+
+\end{document}
